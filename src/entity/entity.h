@@ -13,7 +13,7 @@ public :
     virtual ~entity();
 
     virtual void draw() = 0;
-    virtual void update() = 0;
+    virtual void update(float dt) = 0;
 
     void move(float dx, float dy);
     void move_to(float x, float y);
