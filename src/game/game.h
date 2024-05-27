@@ -10,6 +10,7 @@
 #include <SDL2/SDL_events.h>
 #include "event.h"
 #include "entity/player.h"
+#include "GUI/health_bar.h"
 
 class game: public context, public event::listener {
 public:
@@ -24,6 +25,7 @@ private:
     
     std::vector<entity *> entities;
     std::vector<interactible *> interactibles;
+    std::vector<gui_component *> ui_components;
 
     interactible * perceive(const player * user);
 
