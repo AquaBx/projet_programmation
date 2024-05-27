@@ -17,14 +17,14 @@ context::context(unsigned int _width, unsigned int _height)
     }
 
     this->window = SDL_CreateWindow("Jeu ESIR", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _width, _height, SDL_WINDOW_RESIZABLE);
-    if(not window) {
+    if(!window) {
         std::cerr << "Error on SDL_CreateWindow : " << SDL_GetError() << std::endl;
         SDL_Quit();
         exit(1);
     }
 
     this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_PRESENTVSYNC);
-    if(not renderer) {
+    if(!renderer) {
         std::cerr << "Error on SDL_CreateRenderer : " << SDL_GetError() << std::endl;
         SDL_DestroyWindow(this->window);
         SDL_Quit();
