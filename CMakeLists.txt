@@ -9,11 +9,8 @@ include_directories(${PROJECT_SOURCE_DIR}/libs/SDL2/include/)
 
 set(exec
     src/main.cpp
-    src/game/context.cpp
-    src/game/context.h
-    src/config.h
-    src/game/game.cpp
-    src/game/game.h
+    src/event.h
+    src/event.cpp
 )
 
 IF("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
@@ -28,5 +25,7 @@ ELSE()
     set(libs ${PROJECT_SOURCE_DIR}/libs/SDL2/bin/mingw_x64/SDL2.dll)
 ENDIF()
 
+
 add_executable(projet_programmation ${exec})
+
 target_link_libraries(${PROJECT_NAME} ${libs})
