@@ -7,22 +7,26 @@ add_compile_options(-c -Wall -ggdb)
 
 include_directories(${PROJECT_SOURCE_DIR}/libs/SDL2/include/)
 
+set(exec
+    src/main.cpp
+    src/game/context.cpp
+    src/game/context.h
+    src/config.h
+    src/game/game.cpp
+    src/game/game.h
+)
+
 IF("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    set(exec WIN32)
+    list(append exec WIN32)
 
     IF("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "ARM64")
         set(libs ${PROJECT_SOURCE_DIR}/libs/SDL2/lib/msvc_arm64/SDL2.lib)
     ELSE()
         set(libs ${PROJECT_SOURCE_DIR}/libs/SDL2/lib/msvc_x64/SDL2.lib)
     ENDIF()
-
 ELSE()
-    set(exec)
     set(libs ${PROJECT_SOURCE_DIR}/libs/SDL2/bin/mingw_x64/SDL2.dll)
-
 ENDIF()
 
-add_executable(projet_programmation ${exec}
-        src/main.cpp
-)
+add_executable(projet_programmation ${exec})
 target_link_libraries(${PROJECT_NAME} ${libs})
