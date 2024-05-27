@@ -24,6 +24,9 @@ set(exec
         src/physics/physics.h
         src/physics/physics.cpp
         src/physics/aabb.h
+
+        src/entity/entity.h
+        src/entity/entity.cpp
 )
 
 IF("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
