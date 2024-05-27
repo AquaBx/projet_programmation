@@ -4,8 +4,16 @@
 #include "player.h"
 #include "renderer.h"
 
-player::player(float x, float y, float width, float height)
-        : entity(x, y, width, height)  {}
+player::player(float x, float y, float width, float height, float interact_r)
+        : entity(x, y, width, height)    {
+    interact_zone.rayon = interact_r;
+    interact_zone.position = entity::position;
+}
+
+const circle & player::get_interact_zone() const{
+    return interact_zone;
+}
+
 
 player::~player(){}
 

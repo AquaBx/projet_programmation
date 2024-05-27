@@ -15,7 +15,7 @@ union vec2 {
         float width, height;
     };
 
-    float distance(vec2 other) {
+    float distance(const vec2 & other) const {
         return (float)sqrt(pow(this->x-other.x, 2) + pow(this->y-other.y, 2));
     }
 };
