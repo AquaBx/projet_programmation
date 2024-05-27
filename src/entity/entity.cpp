@@ -26,8 +26,7 @@ vec2 entity::get_size() const {
     return this->size;
 }
 
-const aabb & entity::get_collide_box() const
-{
+const aabb & entity::get_collide_box() const {
     return collide_box;
 }
 

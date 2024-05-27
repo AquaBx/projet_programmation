@@ -3,12 +3,11 @@
 //
 #pragma once
 
-
 #include "utils/vec2.h"
 #include "physics/aabb.h"
 
 class entity {
-public :
+public:
     entity(float x, float y, float width, float height);
 
     virtual ~entity();
