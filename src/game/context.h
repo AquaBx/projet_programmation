@@ -3,16 +3,14 @@
 //
 #pragma once
 
-#include "SDL2/SDL_render.h"
+#include <SDL2/SDL_render.h>
 
 class context {
 protected:
     unsigned int width, height;
     SDL_Window* window;
-    SDL_Renderer* renderer;
 
 public:
     context(unsigned int _width, unsigned int _height);
-
     virtual ~context();
 };

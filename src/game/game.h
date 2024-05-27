@@ -9,8 +9,5 @@
 class game: public context {
 public:
     game(unsigned int _width, unsigned int _height);
-
     void run();
-private:
-    void gameLoop();
 };

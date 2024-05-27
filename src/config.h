@@ -1,11 +1,15 @@
 //
 // Created by malo1 on 5/27/2024.
 //
-
 #pragma once
 
-namespace Config
-{
-    static const unsigned int screenWidth = 440;
-    static const unsigned int screenHeight = 608;
-}
+namespace config {
+
+    namespace window {
+
+        constexpr uint16_t width = 440;
+        constexpr uint16_t height = 608;
+
+    } // namespace window
+
+} // namespace config
