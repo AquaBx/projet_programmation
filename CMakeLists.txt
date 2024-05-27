@@ -31,6 +31,10 @@ set(exec
         src/entity/entity.h
         src/entity/entity.cpp
 
+        src/camera.cpp
+        src/camera.h
+        src/utils/vec2.h
+
         src/renderer.h
         src/renderer.cpp
         src/color.h

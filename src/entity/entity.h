@@ -1,7 +1,10 @@
 //
 // Created by cejosso on 27/05/2024.
 //
-# pragma once
+#pragma once
+
+
+#include "utils/vec2.h"
 
 class entity {
 public :
@@ -15,13 +18,10 @@ public :
     void move(float dx, float dy);
     void move_to(float x, float y);
 
+    vec2 get_position() const;
+    vec2 get_size() const;
+
 protected :
-    struct {
-        float x;
-        float y;
-    } position;
-    struct {
-        float width;
-        float height;
-    } size;
+    vec2 position;
+    vec2 size;
 };
