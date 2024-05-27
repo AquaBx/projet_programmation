@@ -31,6 +31,9 @@ set(exec
         src/entity/entity.h
         src/entity/entity.cpp
 
+        src/entity/interactible.cpp
+        src/entity/interactible.h
+
         src/entity/player.h
         src/entity/player.cpp
 

@@ -3,11 +3,12 @@
 //
 #pragma once
 
-#include <SDL2/SDL_events.h>
-
+#include <vector>
 #include "context.h"
+#include "entity/entity.h"
+#include "entity/interactible.h"
+#include <SDL2/SDL_events.h>
 #include "event.h"
-
 #include "entity/player.h"
 
 class game: public context, public event::listener {
@@ -20,6 +21,13 @@ public:
 
     void run();
 private:
+    
+    std::vector<entity *> entities;
+    std::vector<interactible *> interactibles;
+
+    interactible * perceive(const player * user);
+
     bool running = true;
+
     player * p;
 };
