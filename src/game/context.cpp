@@ -7,12 +7,13 @@
 #include <SDL2/SDL.h>
 
 #include "context.h"
+#include "renderer.h"
 
 context::context(unsigned int _width, unsigned int _height)
-    : width(_width), height(_height), window(nullptr), renderer(nullptr)
+    : width(_width), height(_height), window(nullptr)
 {
     if(auto code = SDL_Init(SDL_INIT_VIDEO)) {
-        std::cerr << "Error on SDL_Init with code " << code << " : " << SDL_GetError() << std::endl;
+        std::cerr << "Error(code: " << code << ") on SDL_Init with code " << code << " : " << SDL_GetError() << std::endl;
         exit(1);
     }
 
@@ -23,19 +24,15 @@ context::context(unsigned int _width, unsigned int _height)
         exit(1);
     }
 
-    this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_PRESENTVSYNC);
-    if(!renderer) {
-        std::cerr << "Error on SDL_CreateRenderer : " << SDL_GetError() << std::endl;
+    if(!renderer::initialize(this->window)) {
         SDL_DestroyWindow(this->window);
         SDL_Quit();
         exit(1);
     }
-
-    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 }
 
 context::~context() {
-    SDL_DestroyRenderer(renderer);
+    renderer::terminate();
     SDL_DestroyWindow(window);
     SDL_Quit();
 }

@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 11)
 add_compile_options(-c -Wall -ggdb)
 
 include_directories(${PROJECT_SOURCE_DIR}/libs/SDL2/include/)
+include_directories(${PROJECT_SOURCE_DIR}/src/)
 
 set(flags
 )
@@ -21,12 +22,18 @@ set(exec
 
         src/event.h
         src/event.cpp
+
         src/physics/physics.h
         src/physics/physics.cpp
+
         src/physics/aabb.h
 
         src/entity/entity.h
         src/entity/entity.cpp
+
+        src/renderer.h
+        src/renderer.cpp
+        src/color.h
 )
 
 IF("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
