@@ -17,3 +17,11 @@ void entity::move_to(float x, float y) {
     position.x = x;
     position.y = y;
 }
+
+vec2 entity::get_position() const {
+    return this->position;
+}
+
+vec2 entity::get_size() const {
+    return this->size;
+}
