@@ -24,9 +24,8 @@ ENDIF()
 
 add_executable(projet_programmation ${exec}
         src/main.cpp
-        src/event/event_listener.cpp
-        src/event/event_listener.h
         src/event.h
         src/event.cpp
 )
+
 target_link_libraries(${PROJECT_NAME} ${libs})
