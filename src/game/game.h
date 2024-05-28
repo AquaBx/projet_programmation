@@ -36,6 +36,7 @@ private:
     std::vector<cluster*> get_cluster_to_blit(camera* camera);
     std::vector<cluster> clusters;
     unsigned int nb_clusters_x, nb_clusters_y;
+
     std::vector<gui_component *> ui_components;
 
     interactible * perceive(const player * user);

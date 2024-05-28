@@ -13,8 +13,9 @@
 
 game::game(unsigned int _width, unsigned int _height)
     : context(_width, _height), p(new player(0, 0, 5, 5, 100, 5))
+
 {
-    ui_components.push_back(new health_bar(p, 220, 20, 200, 15));
+    ui_components.push_back(new health_bar(p, 220, 20, 41, 7));
 
     float cw = config::map::cluster_width;
     float ch = config::map::cluster_height;
@@ -33,7 +34,6 @@ game::game(unsigned int _width, unsigned int _height)
 
 game::~game() {
     delete p;
-//    for(auto c : clusters) delete c;
     for (auto component : ui_components) delete component;
 }
 
