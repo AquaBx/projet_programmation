@@ -20,5 +20,5 @@ public:
 
     void change_reference(const entity* _reference);
 
-    const aabb& get_outer_range();
+    const aabb& get_outer_range() const;
 };
