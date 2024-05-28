@@ -9,7 +9,7 @@
 
 class sprite {
 protected:
-    SDL_Texture* texture;
+    SDL_Texture* texture = nullptr;
     vec2<float> size;
     vec2<int> frame_resolution;
     vec2<float> position;
