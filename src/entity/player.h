@@ -22,7 +22,7 @@ public :
     void benefit(int benefit_value);
     int get_max_health() const;
     int get_current_health() const;
-    const circle & get_interact_zone() const;
+    const circle get_interact_zone() const;
 
-    const aabb &get_collide_box() const;
+    const aabb get_collide_box() const;
 };

@@ -29,7 +29,8 @@ game::game(unsigned int _width, unsigned int _height)
     }
     //might be worth storing it inside entity
     unsigned int player_cluster_idx = find_cluster_idx(p->get_position());
-    clusters[player_cluster_idx].entities.insert(p);
+    clusters[player_cluster_idx].foreground.insert(p);
+    clusters[player_cluster_idx].collidables.insert(p);
 }
 
 game::~game() {
