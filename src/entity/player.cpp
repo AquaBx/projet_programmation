@@ -4,24 +4,33 @@
 #include <algorithm>
 #include "player.h"
 #include "renderer.h"
+#include "input.h"
 
 player::player(vec2<float> pos, vec2<float> size, int max_health):
         entity(pos),
         animated_sprite(pos, size, {{48, 48}}, "../resources/test.bmp", {4}, 0.1),
         collidable_entity(pos, aabb{0.f, 0.f, size.width, size.height}),
         max_health(max_health), current_health(max_health)
-{}
+{
+}
 
-
-const circle player::get_interact_zone() const{
+circle player::get_interact_zone() const{
     circle interact_zone{15,size/2.0f};
     return interact_zone + get_position();
 }
 
-void player::update(float dt) {
+void player::update(float dt){
     animated_sprite::update(dt);
+
+    vec2<float> dir{{0, 0}};
+
+    if(input::is_key_pressed(SDL_SCANCODE_A)) { dir.x -= 1; }
+    if(input::is_key_pressed(SDL_SCANCODE_D)) { dir.x += 1; }
+    if(input::is_key_pressed(SDL_SCANCODE_W)) { dir.y -= 1; }
+    if(input::is_key_pressed(SDL_SCANCODE_S)) { dir.y += 1; }
+
     const float speed = 10;
-    move(speed * dt, 0);
+    move(dir.x * speed * dt, dir.y * speed * dt);
 }
 
 void player::damage(int damage_value) {
