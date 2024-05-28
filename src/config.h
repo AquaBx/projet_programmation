@@ -15,6 +15,10 @@ namespace config {
     namespace map {
         constexpr uint16_t cluster_width = 50;
         constexpr uint16_t cluster_height = 50;
+
+        constexpr float tile_width = 16;
+        constexpr float tile_height = 16;
+
     } // namespace map
 
 } // namespace config

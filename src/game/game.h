@@ -28,14 +28,6 @@ public:
 private:
     std::vector<entity *> entities;
     std::vector<interactible *> interactibles;
-    unsigned int find_cluster_idx(const vec2<float>& position) const;
-
-    std::vector<cluster*> get_surrounding_clusters(unsigned int cluster_idx);
-
-    // will have camera attribute in game?
-    std::vector<cluster*> get_cluster_to_blit(camera* camera);
-    std::vector<cluster> clusters;
-    unsigned int nb_clusters_x, nb_clusters_y;
 
     std::vector<gui_component *> ui_components;
 

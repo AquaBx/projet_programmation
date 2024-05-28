@@ -60,6 +60,8 @@ set(exec
         src/GUI/gui_component.h
         src/physics/collidable.cpp
         src/physics/collidable.h
+        src/map/map.cpp
+        src/map/map.h
 )
 
 # SDL2_image sources
