@@ -21,10 +21,7 @@ public:
     vec2<float> get_position() const;
     vec2<float> get_size() const;
 
-    const aabb & get_collide_box() const;
-
 protected :
     vec2<float> position;
     vec2<float> size;
-    aabb collide_box;
 };

@@ -4,17 +4,14 @@
 
 #pragma once
 
-#include "entity.h"
 #include "physics/circle.h"
 #include "player.h"
 
-class interactible : public entity {
+class interactible {
 protected:
     circle interact_zone;
 public :
-    interactible(float x, float y, float width, float height, float interact_r);
-
-    ~interactible() override = default;
+    interactible(float x, float y, float interact_r);
 
     const circle & get_interact_zone() const;
 
