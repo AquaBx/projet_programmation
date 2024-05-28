@@ -7,9 +7,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include "input.h"
 #include "context.h"
 #include "renderer.h"
-#include "input.h"
 
 context::context(unsigned int _width, unsigned int _height)
     : width(_width), height(_height), window(nullptr)
@@ -19,7 +19,7 @@ context::context(unsigned int _width, unsigned int _height)
         exit(1);
     }
 
-    this->window = SDL_CreateWindow("Jeu ESIR", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _width, _height, SDL_WINDOW_RESIZABLE);
+    this->window = SDL_CreateWindow("Jeu ESIR", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)_width, (int)_height, SDL_WINDOW_SHOWN);
     if(!window) {
         std::cerr << "Error on SDL_CreateWindow : " << SDL_GetError() << std::endl;
         SDL_Quit();

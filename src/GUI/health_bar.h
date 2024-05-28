@@ -3,17 +3,15 @@
 //
 #pragma once
 
+#include "camera.h"
 #include "gui_component.h"
-#include "renderer.h"
 #include "entity/player.h"
 
 class health_bar : public gui_component {
 public :
-    health_bar(player * p, const float x, const float y, const float width, const float height);
+    health_bar(vec2<float> _position, vec2<float> _size, vec2<int> _sprite_offset , vec2<int> _sprite_resolution, const char* image_src, player * p);
 
-    virtual ~health_bar();
-
-    void draw() override;
+    void draw(const camera& cam) const override;
     void update(float dt) override;
 
 private:

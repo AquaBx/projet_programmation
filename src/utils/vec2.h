@@ -1,7 +1,6 @@
 //
 // Created by malo1 on 5/27/2024.
 //
-
 #pragma once
 
 #include <cmath>

@@ -1,17 +1,18 @@
 //
 // Created by malo1 on 5/27/2024.
 //
-
 #pragma once
-
 
 #include <set>
 #include <vector>
 #include <unordered_set>
-#include "entity/entity.h"
+
+#include "entity/sprite.h"
 #include "entity/interactible.h"
 
-struct compare {
+#include "physics/collidable.h"
+
+struct y_sort {
     bool operator()(const entity* a, const entity* b) const {
         return a->get_position().y < b->get_position().y;
     }
@@ -22,8 +23,8 @@ private:
     aabb collision_box;
 
 public:
-    std::vector<entity*> background;
-    std::set<entity*, compare> foreground;
+    std::vector<sprite*> background;
+    std::set<sprite*, y_sort> foreground;
     std::unordered_set<collidable*> collidables;
     std::unordered_set<interactible*> interactibles;
 
