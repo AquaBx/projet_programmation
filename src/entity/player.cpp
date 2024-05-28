@@ -9,11 +9,11 @@ player::player(float x, float y, float width, float height, int max_health)
         : entity(x, y, width, height), collidable(0,0,0,0), max_health(max_health), current_health(max_health)    {
 }
 
-const aabb &player::get_collide_box() const {
+const aabb player::get_collide_box() const {
     return collide_box + get_position();
 }
 
-const circle & player::get_interact_zone() const{
+const circle player::get_interact_zone() const{
     circle interact_zone{15,size/2.0f};
     return interact_zone + get_position();
 }

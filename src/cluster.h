@@ -6,6 +6,8 @@
 
 
 #include <set>
+#include <vector>
+#include <unordered_set>
 #include "entity/entity.h"
 #include "entity/interactible.h"
 
@@ -20,9 +22,10 @@ private:
     aabb collision_box;
 
 public:
-    std::set<entity*, compare> entities;
-    std::set<interactible*, compare> interactibles;
-    //movables?
+    std::vector<entity*> background;
+    std::set<entity*, compare> foreground;
+    std::unordered_set<collidable*> collidables;
+    std::unordered_set<interactible*> interactibles;
 
     explicit cluster(const aabb& _collide_box);
 
