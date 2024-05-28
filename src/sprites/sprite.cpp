@@ -22,11 +22,19 @@ void sprite::update(float dt)
 
     if (frame_x > static_cast<float>(max_frames[frame_y])) {
         frame_x -= static_cast<float>(max_frames[frame_y]);
-        //frame_y += dt;
     }
 }
 
-int sprite::load_texture() {
+
+void sprite::set_frame_y(int frame){
+    frame_y = frame;
+}
+
+void sprite::set_frame_x(int frame){
+    frame_x = frame;
+}
+
+int sprite::load_texture(const char * image_src) {
     return renderer::load_texture(image_src,this);
 }
 

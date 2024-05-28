@@ -10,7 +10,6 @@
 class sprite {
 protected:
     SDL_Texture* texture;
-    const char * image_src;
     vec2<float> size;
     vec2<int> frame_resolution;
     vec2<float> position;
@@ -23,9 +22,9 @@ public:
 
     int get_number_of_animation();
 
-    int load_texture();
+    int load_texture(const char * image_src);
 
-    sprite(const char * src, vec2<float> position, vec2<float> size, vec2<int> frame_resolution, std::vector<int> max_frames) : image_src(src),position(position), size(size), frame_resolution(frame_resolution), max_frames(max_frames) {}
+    sprite(vec2<float> position, vec2<float> size, vec2<int> frame_resolution, std::vector<int> max_frames) : position(position), size(size), frame_resolution(frame_resolution), max_frames(max_frames) {}
 
     void set_texture(SDL_Texture* texture);
 
@@ -36,4 +35,7 @@ public:
     ~sprite();
 
     vec2<int> get_frame() const;
+
+    void set_frame_y(int frame);
+    void set_frame_x(int frame);
 };

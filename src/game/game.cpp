@@ -39,9 +39,9 @@ void game::run() {
     std::vector<int> max_frames;
     max_frames.push_back(4);
 
-    sprite test("../resources/test.bmp",position,size,resolution,max_frames);
+    sprite test(position,size,resolution,max_frames);
 
-     int a = test.load_texture();
+     int a = test.load_texture("../resources/test.bmp");
      std::cout<<a;
 
     while(running) {
