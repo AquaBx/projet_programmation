@@ -3,6 +3,8 @@
 //
 #pragma once
 
+#include <cstdint>
+
 namespace config {
 
     namespace window {
@@ -13,6 +15,7 @@ namespace config {
     } // namespace window
 
     namespace map {
+
         constexpr uint16_t cluster_width = 50;
         constexpr uint16_t cluster_height = 50;
 

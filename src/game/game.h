@@ -14,6 +14,7 @@
 #include "cluster.h"
 #include "camera.h"
 #include "GUI/health_bar.h"
+#include "map/map.h"
 
 class game: public context, public event::listener {
 public:
@@ -26,12 +27,10 @@ public:
     void run();
 
 private:
-    std::vector<entity *> entities;
-    std::vector<interactible *> interactibles;
-
+    map m;
     std::vector<gui_component *> ui_components;
 
-    interactible * perceive(const player * user);
+    // interactible * perceive(const player * user);
 
     bool running = true;
 

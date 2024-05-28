@@ -1,18 +1,14 @@
- //
+//
 // Created by malo1 on 5/27/2024.
 //
 #include "game.h"
-
-#include <iostream>
 
 #include "physics/physics.h"
 #include "renderer.h"
 #include "event.h"
 
-#include "sprites/sprite.h"
-
-game::game(unsigned int _width, unsigned int _height)
-    : context(_width, _height), p(new player(0, 0, 5, 5, 100))
+ game::game(unsigned int _width, unsigned int _height)
+    : context(_width, _height), m(0, 0), p(new player({{0.f, 100.f}}, {{48.f, 48.f}}, 100))
 {
     ui_components.push_back(new health_bar(p, 220, 20, 41, 7));
 }
@@ -23,46 +19,22 @@ game::~game() {
 }
 
 void game::run() {
-    vec2<float> position;
-    position.x=0;
-    position.y=0;
-
-    vec2<int> resolution;
-    resolution.width=48;
-    resolution.height=48;
-
-     vec2<float> size;
-    size.width=100;
-    size.height=100;
-
-    std::vector<int> max_frames;
-    max_frames.push_back(4);
-
-    sprite test(position,size,resolution,max_frames);
-
-     int a = test.load_texture("../resources/test.bmp");
-     std::cout<<a;
 
     while(running) {
         event::manager::update();
 
         p->update(0.1);
-
-        test.update(0.1);
-
-        for (auto component : ui_components) {
-            component->update(0.1);
-        }
+//        for (auto component : ui_components) {
+//            component->update(0.1);
+//        }
 
         renderer::clear(0, 0, 0);
 
         p->draw();
 
-        test.draw();
-
-        for (auto component : ui_components) {
-            component->draw();
-        }
+//        for (auto component : ui_components) {
+//            component->draw();
+//        }
 
         renderer::present();
     }

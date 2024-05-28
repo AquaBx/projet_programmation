@@ -4,6 +4,8 @@
 #include "renderer.h"
 #include <iostream>
 #include <SDL2/SDL.h>
+#include "texture_manager.h"
+#include "entity/sprite.h"
 #include <SDL2/SDL_image.h>
 
 namespace renderer {
@@ -37,6 +39,7 @@ namespace renderer {
 
     void terminate() {
         SDL_DestroyRenderer(renderer);
+        texture_manager::terminate();
     }
 
     void draw_rect(float x, float y, float width, float height, color c) {
@@ -59,35 +62,41 @@ namespace renderer {
         using std::cerr;
         using std::endl;
 
-        const char * ext = image_src;
+        SDL_Texture * texture;
+        if(texture_manager::loaded_textures.find(image_src) != texture_manager::loaded_textures.end()) {
+            texture = texture_manager::loaded_textures[image_src];
+        } else {
+            const char * ext = image_src;
 
-        for ( ; *ext != '\0' ; ext ++ );
-        for ( ; *ext != '.' ; ext -- );
-        ext++;
+            for ( ; *ext != '\0' ; ext ++ );
+            for ( ; *ext != '.' ; ext -- );
+            ext++;
 
-        SDL_Surface* img = nullptr;
+            SDL_Surface* img = nullptr;
 
-        if ( strcmp(ext,"png") == 0 ) {
-            img = IMG_Load(image_src);
-        }
-        else if ( strcmp(ext,"bmp") == 0 ) {
-            img = SDL_LoadBMP(image_src);
-        }
+            if ( strcmp(ext,"png") == 0 ) {
+                img = IMG_Load(image_src);
+            }
+            else if ( strcmp(ext,"bmp") == 0 ) {
+                img = SDL_LoadBMP(image_src);
+            }
 
-        if (img == nullptr) {
-            cerr << "SDL_Load Error: " << SDL_GetError() << endl;
-            return EXIT_FAILURE;
-        }
+            if (img == nullptr) {
+                cerr << "SDL_Load Error: " << SDL_GetError() << endl;
+                return EXIT_FAILURE;
+            }
 
-        SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer, img);
-        if (texture == nullptr) {
-            cerr << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << endl;
-            return EXIT_FAILURE;
+            texture = SDL_CreateTextureFromSurface(renderer, img);
+            if (texture == nullptr) {
+                cerr << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << endl;
+                return EXIT_FAILURE;
+            }
+
+            SDL_FreeSurface(img);
+            texture_manager::loaded_textures[image_src] = texture;
         }
 
         sprite_obj->set_texture(texture);
-
-        SDL_FreeSurface(img);
         return 0;
     }
 } // namespace renderer

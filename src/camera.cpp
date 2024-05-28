@@ -3,14 +3,15 @@
 //
 
 #include "camera.h"
+#include "entity/sprite.h"
 #include <cassert>
 #include <algorithm>
 
-camera::camera(float _x, float _y, float _width, float _height, float free_move_ratio, float outer_simulation_ratio, const entity* _reference):
-        x(_x), y(_y), width(_width), height(_height),
-        inner_x(_width * (1.f - free_move_ratio) / 2.f), inner_y(_height * (1.f - free_move_ratio) / 2.f),
-        inner_width(_width * free_move_ratio), inner_height(_height * free_move_ratio),
-        outer_range({_y - _height*(outer_simulation_ratio-1.f)/2.f, _x + _width*(outer_simulation_ratio+1.f)/2.f, _y + _height*(outer_simulation_ratio+1.f)/2.f, _x - _width*(outer_simulation_ratio-1.f)/2.f}),
+camera::camera(vec2<float> _pos, vec2<float> _size, float free_move_ratio, float outer_simulation_ratio, const sprite* _reference):
+        pos(_pos), size(_size),
+        inner_pos{{size.width * (1.f - free_move_ratio) / 2.f, size.height * (1.f - free_move_ratio) / 2.f}},
+        inner_size{{size.width * free_move_ratio, size.height * free_move_ratio}},
+        outer_range({pos.y - size.height*(outer_simulation_ratio-1.f)/2.f, pos.x + size.width*(outer_simulation_ratio+1.f)/2.f, pos.y + size.height*(outer_simulation_ratio+1.f)/2.f, pos.x - size.width*(outer_simulation_ratio-1.f)/2.f}),
         reference(_reference)
 {
     assert(0.f < free_move_ratio && free_move_ratio <= 1.f && "free move ratio must be between 0 and 1");
@@ -19,13 +20,13 @@ camera::camera(float _x, float _y, float _width, float _height, float free_move_
 
 void camera::update() {
     vec2<float> ref_pos = reference->get_position();
-    this->x -= std::max(0.f, (x+inner_x) - ref_pos.x); //left
-    this->x += std::max(0.f, (ref_pos.x + reference->get_size().width) - (x + inner_x + inner_width)); //right
-    this->y -= std::max(0.f, (y+inner_y) - ref_pos.y); //top
-    this->y += std::max(0.f, (ref_pos.y + reference->get_size().height) - (y + inner_y + inner_height)); //bottom
+    this->pos.x -= std::max(0.f, (pos.x+inner_pos.x) - ref_pos.x); //left
+    this->pos.x += std::max(0.f, (ref_pos.x + reference->get_size().width) - (pos.x + inner_pos.x + inner_size.width)); //right
+    this->pos.y -= std::max(0.f, (pos.y+inner_pos.y) - ref_pos.y); //top
+    this->pos.y += std::max(0.f, (ref_pos.y + reference->get_size().height) - (pos.y + inner_pos.y + inner_size.height)); //bottom
 }
 
-void camera::change_reference(const entity* _reference) { this->reference = _reference; }
+void camera::change_reference(const sprite* _reference) { this->reference = _reference; }
 
 const aabb &camera::get_outer_range() const {
     return this->outer_range;
