@@ -4,10 +4,8 @@
 
 #include "interactible.h"
 
-interactible::interactible(float x, float y, float width, float height, float interact_r): entity(x,y,width,height) {
-    interact_zone.rayon = interact_r;
-    interact_zone.position = entity::position;
-}
+interactible::interactible(float x, float y, float interact_r)
+    : interact_zone{interact_r, {{x, y}}} {}
 
 const circle & interactible::get_interact_zone() const{
     return interact_zone;

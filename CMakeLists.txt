@@ -58,6 +58,8 @@ set(exec
 
         src/GUI/gui_component.cpp
         src/GUI/gui_component.h
+        src/physics/collidable.cpp
+        src/physics/collidable.h
 )
 
 # SDL2_image sources
