@@ -6,13 +6,13 @@
 
 #include <cmath>
 
-
+template <class T>
 union vec2 {
     struct {
-        float x, y;
+        T x, y;
     };
     struct {
-        float width, height;
+        T width, height;
     };
 
     float distance(const vec2 & other) const {

@@ -44,6 +44,8 @@ set(exec
         src/renderer.h
         src/renderer.cpp
         src/color.h
+        src/sprites/sprite.cpp
+        src/sprites/sprite.h
 
         src/GUI/health_bar.cpp
         src/GUI/health_bar.h

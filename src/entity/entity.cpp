@@ -18,11 +18,11 @@ void entity::move_to(float x, float y) {
     position.y = y;
 }
 
-vec2 entity::get_position() const {
+vec2<float> entity::get_position() const {
     return this->position;
 }
 
-vec2 entity::get_size() const {
+vec2<float> entity::get_size() const {
     return this->size;
 }
 
