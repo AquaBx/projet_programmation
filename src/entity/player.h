@@ -5,7 +5,9 @@
 
 #include "entity.h"
 #include "physics/circle.h"
+#include "SDL_scancode.h"
 #include <cstdint>
+#include <cassert>
 
 #include "physics/collidable.h"
 #include "animated_sprite.h"
@@ -22,5 +24,5 @@ public :
     void benefit(int benefit_value);
     int get_max_health() const;
     int get_current_health() const;
-    const circle get_interact_zone() const;
+    circle get_interact_zone() const;
 };

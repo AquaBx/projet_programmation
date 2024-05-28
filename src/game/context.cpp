@@ -9,6 +9,7 @@
 
 #include "context.h"
 #include "renderer.h"
+#include "input.h"
 
 context::context(unsigned int _width, unsigned int _height)
     : width(_width), height(_height), window(nullptr)
@@ -35,6 +36,8 @@ context::context(unsigned int _width, unsigned int _height)
     if(flags != IMG_INIT_PNG) {
         std::cerr << "Error on IMG_Init, could not init PNG : " << IMG_GetError() << std::endl;
     }
+
+    input::initialize();
 }
 
 context::~context() {
