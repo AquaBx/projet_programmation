@@ -24,7 +24,7 @@ public:
 
     int load_texture(const char * image_src);
 
-    sprite(const char * src, vec2<float> position, vec2<float> size, vec2<int> frame_resolution, const std::vector<int>& max_frames);
+    sprite(vec2<float> position, vec2<float> size, vec2<int> frame_resolution, const std::vector<int>& max_frames);
 
     void set_texture(SDL_Texture* texture);
 

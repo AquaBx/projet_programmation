@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 11)
 add_compile_options(-c -Wall -ggdb)
 
 include_directories(${PROJECT_SOURCE_DIR}/libs/SDL2/include/)
+include_directories(${PROJECT_SOURCE_DIR}/libs/SDL2/include/SDL2/)
 include_directories(${PROJECT_SOURCE_DIR}/src/)
 
 set(flags
@@ -58,6 +59,10 @@ set(exec
         src/GUI/gui_component.cpp
         src/GUI/gui_component.h
 )
+
+# SDL2_image sources
+FILE(GLOB SDL2_image_src CONFIGURE_DEPENDS ${PROJECT_SOURCE_DIR}/libs/SDL2_image/src/*.c)
+list(APPEND exec ${SDL2_image_src})
 
 IF("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     list(APPEND flags WIN32)

@@ -10,7 +10,7 @@
 #include "entity/interactible.h"
 
 struct compare {
-    bool operator()(entity* a, entity* b) {
+    bool operator()(const entity* a, const entity* b) const {
         return a->get_position().y < b->get_position().y;
     }
 };

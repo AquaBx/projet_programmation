@@ -8,8 +8,8 @@
 
 #include "renderer.h"
 
-sprite::sprite(const char * src, vec2<float> position, vec2<float> size, vec2<int> frame_resolution, const std::vector<int>& max_frames):
-    image_src(src),size(size), frame_resolution(frame_resolution), position(position), max_frames(max_frames)
+sprite::sprite(vec2<float> position, vec2<float> size, vec2<int> frame_resolution, const std::vector<int>& max_frames):
+    size(size), frame_resolution(frame_resolution), position(position), max_frames(max_frames)
 {
 
 }
@@ -30,7 +30,6 @@ void sprite::update(float dt)
         frame_x -= static_cast<float>(max_frames[frame_y]);
     }
 }
-
 
 void sprite::set_frame_y(int frame){
     frame_y = frame;
