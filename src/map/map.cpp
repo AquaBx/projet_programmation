@@ -1,19 +1,17 @@
 //
 // Created by tomch on 28/05/2024.
 //
-#include <array>
 #include <fstream>
 #include <iostream>
 
-#include <cstring>
+#include <cstring> // memset 0
 #include <cassert>
 
 #include "map.h"
 #include "entity/entity.h"
 
 map::map(unsigned int _width, unsigned int _height) {
-    float cw = config::map::cluster_width;
-    float ch = config::map::cluster_height;
+    load_wsv({{0, 0}}, "../resources/out.txt");
 }
 
 struct csv_line {
@@ -72,8 +70,8 @@ void map::load_wsv(vec2<float> size, const char * file){
         std::cerr << "could not read height, currently at : " << start << std::endl;
     }
 
-    this->nb_clusters_x = std::ceil(width/cw);
-    this->nb_clusters_y = std::ceil(height/ch);
+    this->nb_clusters_x = std::ceil((float)width/cw);
+    this->nb_clusters_y = std::ceil((float)height/ch);
     for(unsigned int x = 0; x < this->nb_clusters_x ; x++) {
         for(unsigned int y = 0 ; y < this->nb_clusters_y ; y++) {
             this->clusters.push_back(cluster({static_cast<float>(y*ch),static_cast<float>((x+1)*cw),static_cast<float>((y+1)*ch),static_cast<float>(x*cw)}));
@@ -85,7 +83,8 @@ void map::load_wsv(vec2<float> size, const char * file){
         switch (line.type) {
             case csv_line::entity_type::tile: {
                 unsigned int idx = this->find_cluster_idx({{line.x, line.y}});
-                // this->clusters[idx].background.push_back(new entity(line.x, line.y, config::map::tile_width, config::map::tile_height))
+                this->clusters[idx].background.push_back(new sprite({{line.x, line.y}},
+                                                                    {{config::map::tile_width, config::map::tile_height}}, {{0, 0}}, {{16, 16}}, "../resources/tiles/water.png"));
             } break;
             default: {
                 std::cerr << "unknown entity type in map !" << std::endl;
