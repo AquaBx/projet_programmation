@@ -6,13 +6,15 @@
 #include <cassert>
 #include <algorithm>
 
-camera::camera(float _x, float _y, float _width, float _height, float _free_move_ratio, const entity* _reference):
-    x(_x), y(_y), width(_width), height(_height),
-    inner_x(_width*(1.f-_free_move_ratio)/2.f), inner_y(_height*(1.f-_free_move_ratio)/2.f),
-    inner_width(_width * _free_move_ratio), inner_height(_height * _free_move_ratio),
-    reference(_reference)
+camera::camera(float _x, float _y, float _width, float _height, float free_move_ratio, float outer_simulation_ratio, const entity* _reference):
+        x(_x), y(_y), width(_width), height(_height),
+        inner_x(_width * (1.f - free_move_ratio) / 2.f), inner_y(_height * (1.f - free_move_ratio) / 2.f),
+        inner_width(_width * free_move_ratio), inner_height(_height * free_move_ratio),
+        outer_range({_y - _height*(outer_simulation_ratio-1.f)/2.f, _x + _width*(outer_simulation_ratio+1.f)/2.f, _y + _height*(outer_simulation_ratio+1.f)/2.f, _x - _width*(outer_simulation_ratio-1.f)/2.f}),
+        reference(_reference)
 {
-    assert(0.f < _free_move_ratio && _free_move_ratio <= 1.f);
+    assert(0.f < free_move_ratio && free_move_ratio <= 1.f && "free move ratio must be between 0 and 1");
+//    assert(outer_simulation_ratio >= 1.f);
 }
 
 void camera::update() {
@@ -24,3 +26,7 @@ void camera::update() {
 }
 
 void camera::change_reference(const entity* _reference) { this->reference = _reference; }
+
+const aabb &camera::get_outer_range() {
+    return this->outer_range;
+}
