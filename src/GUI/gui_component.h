@@ -6,16 +6,10 @@
 #include "utils/vec2.h"
 #include <string>
 
-class gui_component {
+#include "entity/sprite.h"
+
+class gui_component : public sprite{
 public:
-    gui_component(const float x, const float y, const float width, const float height);
-    virtual ~gui_component();
-
-    virtual void draw() = 0;
-    virtual void update(float dt) = 0;
-
-protected:
-    vec2<float> position;
-    vec2<float> size;
+    gui_component(vec2<float> _position, vec2<float> _size, vec2<int> _sprite_offset , vec2<int> _sprite_resolution, const char* image_src);
 };
 

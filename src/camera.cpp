@@ -1,17 +1,17 @@
 //
 // Created by malo1 on 5/27/2024.
 //
-
-#include "camera.h"
-#include "entity/sprite.h"
 #include <cassert>
 #include <algorithm>
 
-camera::camera(vec2<float> _pos, vec2<float> _size, float free_move_ratio, float outer_simulation_ratio, const sprite* _reference):
+#include "camera.h"
+#include "entity/sprite.h"
+
+camera::camera(vec2<float> _pos, vec2<float> _size, float free_move_ratio, float _outer_simulation_ratio, const sprite* _reference):
         pos(_pos), size(_size),
         inner_pos{{size.width * (1.f - free_move_ratio) / 2.f, size.height * (1.f - free_move_ratio) / 2.f}},
         inner_size{{size.width * free_move_ratio, size.height * free_move_ratio}},
-        outer_range({pos.y - size.height*(outer_simulation_ratio-1.f)/2.f, pos.x + size.width*(outer_simulation_ratio+1.f)/2.f, pos.y + size.height*(outer_simulation_ratio+1.f)/2.f, pos.x - size.width*(outer_simulation_ratio-1.f)/2.f}),
+        outer_simulation_ratio(_outer_simulation_ratio),
         reference(_reference)
 {
     assert(0.f < free_move_ratio && free_move_ratio <= 1.f && "free move ratio must be between 0 and 1");
@@ -28,6 +28,10 @@ void camera::update() {
 
 void camera::change_reference(const sprite* _reference) { this->reference = _reference; }
 
-const aabb &camera::get_outer_range() const {
-    return this->outer_range;
+aabb camera::get_outer_range() const {
+    return {pos.y - size.height * (outer_simulation_ratio - 1) / 2 ,
+            pos.x + size.width + size.width * (outer_simulation_ratio - 1) / 2,
+            pos.y + size.height + size.height * (outer_simulation_ratio - 1) / 2,
+            pos.x - size.width * (outer_simulation_ratio - 1) / 2,
+    };
 }

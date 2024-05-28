@@ -213,7 +213,7 @@ SDL_Surface *IMG_Load_RW(SDL_RWops *src, int freesrc)
     return IMG_LoadTyped_RW(src, freesrc, NULL);
 }
 
-/* Portable case-insensitive string compare function */
+/* Portable case-insensitive string y_sort function */
 static int IMG_string_equals(const char *str1, const char *str2)
 {
     while ( *str1 && *str2 ) {

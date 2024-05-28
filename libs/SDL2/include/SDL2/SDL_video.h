@@ -450,7 +450,7 @@ extern DECLSPEC int SDLCALL SDL_GetDisplayUsableBounds(int displayIndex, SDL_Rec
  * always reliable! It is almost always better to use SDL_GetWindowSize() to
  * find the window size, which might be in logical points instead of pixels,
  * and then SDL_GL_GetDrawableSize(), SDL_Vulkan_GetDrawableSize(),
- * SDL_Metal_GetDrawableSize(), or SDL_GetRendererOutputSize(), and compare
+ * SDL_Metal_GetDrawableSize(), or SDL_GetRendererOutputSize(), and y_sort
  * the two values to get an actual scaling value between the two. We will be
  * rethinking how high-dpi details should be managed in SDL3 to make things
  * more consistent, reliable, and clear.
