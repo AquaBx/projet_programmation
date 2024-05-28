@@ -19,14 +19,14 @@ float physics::shared_distance(const circle & collide_1, const circle & collide_
     return std::max( 0.0f , (collide_1.rayon + collide_2.rayon) - collide_1.position.distance(collide_2.position) ) ;
 }
 
-void physics::check_and_collide( entity & m_entity, const vec2 & dpos,const aabb & collide_box) {
+void physics::check_and_collide( entity & m_entity, const vec2<float> & dpos,const aabb & collide_box) {
     aabb check = m_entity.get_collide_box() + dpos;
     if ( !are_colliding(check,collide_box) ){
         m_entity.move(dpos.x,dpos.y);
     }
 }
 
-void physics::check_and_collide(entity & m_entity, const vec2 & dpos, const std::vector<aabb> & collidables){
+void physics::check_and_collide(entity & m_entity, const vec2<float> & dpos, const std::vector<aabb> & collidables){
     for (aabb collidable : collidables) {
         check_and_collide(m_entity,dpos,collidable);
     }

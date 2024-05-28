@@ -18,13 +18,13 @@ public:
     void move(float dx, float dy);
     void move_to(float x, float y);
 
-    vec2 get_position() const;
-    vec2 get_size() const;
+    vec2<float> get_position() const;
+    vec2<float> get_size() const;
 
     const aabb & get_collide_box() const;
 
 protected :
-    vec2 position;
-    vec2 size;
+    vec2<float> position;
+    vec2<float> size;
     aabb collide_box;
 };

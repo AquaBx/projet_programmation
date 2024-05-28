@@ -16,7 +16,7 @@ camera::camera(float _x, float _y, float _width, float _height, float _free_move
 }
 
 void camera::update() {
-    vec2 ref_pos = reference->get_position();
+    vec2<float> ref_pos = reference->get_position();
     this->x -= std::max(0.f, (x+inner_x) - ref_pos.x); //left
     this->x += std::max(0.f, (ref_pos.x + reference->get_size().width) - (x + inner_x + inner_width)); //right
     this->y -= std::max(0.f, (y+inner_y) - ref_pos.y); //top

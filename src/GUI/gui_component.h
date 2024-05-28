@@ -15,7 +15,7 @@ public:
     virtual void update(float dt) = 0;
 
 protected:
-    vec2 position;
-    vec2 size;
+    vec2<float> position;
+    vec2<float> size;
 };
 

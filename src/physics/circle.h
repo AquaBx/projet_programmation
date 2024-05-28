@@ -7,5 +7,5 @@
 
 struct circle {
     float rayon;
-    vec2 position;
+    vec2<float> position;
 };
