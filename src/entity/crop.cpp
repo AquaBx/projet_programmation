@@ -6,7 +6,7 @@
 
 crop::crop(vec2<float> pos, vec2<float> size, int y_offset):
 entity(pos),
-sprite(pos, size,{{1, y_offset}}, {{16, 16}}, "../resources/plants.png"),
+sprite(pos, size,{{1, static_cast<unsigned int>(y_offset)}}, {{16, 16}}, "../resources/plants.png"),
 interactible(8, 8, 16)
 {}
 

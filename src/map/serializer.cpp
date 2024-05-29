@@ -57,7 +57,7 @@ namespace serializer {
 
         map parsed_data;
         parsed_data.header = read_header(file);
-        while(!file.eof() and !file.fail()) {
+        while(!file.eof() && !file.fail()) {
             parsed_data.data.push_back(read_line(file));
         }
         return parsed_data;
