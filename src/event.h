@@ -7,6 +7,11 @@
 
 namespace event {
 
+    enum source : int32_t {
+        player,
+        fusee,
+    };
+
     struct listener {
         explicit listener();
 
@@ -16,6 +21,7 @@ namespace event {
     namespace manager {
 
         void update();
+        void append(source code, void* context = nullptr, void* context_2 = nullptr);
 
     } // namespace manager
 

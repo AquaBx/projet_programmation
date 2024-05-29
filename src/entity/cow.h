@@ -1,7 +1,6 @@
 //
 // Created by tomch on 28/05/2024.
 //
-
 #pragma once
 
 #include "physics/circle.h"
@@ -23,5 +22,11 @@ public :
 
     void update(float dt) override;
 
-    void interact(player *user) override;
+    void damage(float damage_value);
+    void heal(float benefit_value);
+
+    float get_max_health() const;
+    float get_current_health() const;
+
+    void interact(player* user) override;
 };

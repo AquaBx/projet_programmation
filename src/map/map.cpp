@@ -26,8 +26,7 @@ uint32_t map::map_tick = 0;
 std::vector<cluster> map::clusters;
 static unsigned int nb_clusters_x, nb_clusters_y;
 
-
-static std::vector<cluster const *> get_cluster_to_blit(const camera &camera);
+static std::vector<cluster const*> get_cluster_to_blit(const camera& camera);
 
 void map::load(const char *file) {
     serializer::map data = serializer::deserialize(file);
