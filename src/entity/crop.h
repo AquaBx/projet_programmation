@@ -21,7 +21,7 @@ public :
     void draw(const camera &cam) const override;
 
     void interact(player *user) override {
-        if (age >= 4) {
+        if (age >= 3) {
             age = 0;
             user->benefit(10);
         }
