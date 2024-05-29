@@ -14,7 +14,7 @@
 
 struct y_sort {
     bool operator()(const entity* a, const entity* b) const {
-        return a->get_position().y < b->get_position().y;
+        return (a != b) and ((a->get_position().y != b->get_position().y) or (a->get_position().y < b->get_position().y));
     }
 };
 

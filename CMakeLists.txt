@@ -76,6 +76,14 @@ set(exec
 
         src/entity/cow.h
         src/entity/cow.cpp
+        src/entity/tomato_crop.h
+        src/entity/crop.cpp
+        src/entity/crop.h
+        src/entity/wheat_crop.h
+        src/GUI/food_bar.cpp
+        src/GUI/food_bar.h
+        src/entity/fusee.cpp
+        src/entity/fusee.h
 
 
         src/map/serializer.h

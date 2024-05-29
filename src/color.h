@@ -20,6 +20,8 @@ namespace renderer {
         constexpr color green = { 0, 255, 0, 255 };
         constexpr color blue = { 0, 0, 255, 255 };
 
+        constexpr color beige = { 237, 211, 171, 255 };
+
     } // namespace colors
 
 } // namespace renderer

@@ -12,26 +12,32 @@
 #include "cluster.h"
 #include "entity/entity.h"
 #include "entity/cow.h"
+#include "entity/fusee.h"
+#include "entity/tomato_crop.h"
+#include "entity/wheat_crop.h"
 #include "game/game.h"
 
 #include "serializer.h"
 
 camera map::cam;
 player* map::p;
+uint32_t map::map_tick = 0;
 
 std::vector<cluster> map::clusters;
 static unsigned int nb_clusters_x, nb_clusters_y;
 
+
 static std::vector<cluster const*> get_cluster_to_blit(const camera& camera);
 
-void map::load(const char* file) {
+void map::load(const char* file)
+{
     serializer::map data = serializer::deserialize(file);
 
     constexpr uint16_t cw = config::map::cluster_width;
     constexpr uint16_t ch = config::map::cluster_height;
 
-    nb_clusters_x = std::ceil((float)data.header.width/cw);
-    nb_clusters_y = std::ceil((float)data.header.height/ch);
+    nb_clusters_x = std::ceil((float)data.header.width / cw);
+    nb_clusters_y = std::ceil((float)data.header.height / ch);
     for (unsigned int y = 0; y < nb_clusters_y; y++)
     {
         for (unsigned int x = 0; x < nb_clusters_x; x++)
@@ -45,50 +51,73 @@ void map::load(const char* file) {
         }
     }
 
-    for(serializer::map_row& row : data.data) {
+
+    for (serializer::map_row& row : data.data)
+    {
         uint32_t idx = find_cluster_idx(row.position);
-        switch (row.type) {
-            case serializer::map_row::entity_type::tile: {
+        switch (row.type)
+        {
+        case serializer::map_row::entity_type::tile:
+            {
                 clusters[idx].background.push_back(
                     new sprite(
                         row.position,
-                        {{ config::map::tile_width, config::map::tile_height }}, // ce que l'on veut afficher
-                        {{ row.tile.i, row.tile.j }},
-                        {{ 16, 16 }}, // ce qu'on lit dans le fichier
+                        {{config::map::tile_width, config::map::tile_height}}, // ce que l'on veut afficher
+                        {{row.tile.i, row.tile.j}},
+                        {{16, 16}}, // ce qu'on lit dans le fichier
                         texture_manager::atlases_name[(size_t)row.tile.atlas_id].c_str()
                     )
                 );
-            } break;
+            }
+            break;
 
-            case serializer::map_row::entity_type::animated_tile: {
+        case serializer::map_row::entity_type::animated_tile:
+            {
                 // clusters[idx].background.push_back();
                 std::cerr << "Not implemented yet !" << std::endl;
-            } break;
+            }
+            break;
 
-            case serializer::map_row::entity_type::player: {
-                player* p = new player(row.position, {{ 48, 48 }}, 100);
-                game::ui_components.push_back(new health_bar( {10, config::window::height - 25}, {123,21}, {0,0}, {41,7},"../resources/healthbar.png",p));
+        case serializer::map_row::entity_type::player:
+            {
+                // init player
+                p = new player(row.position, {{48.0f, 48.0f}}, 100, 100);
+                health_bar* h = new health_bar({10, config::window::height - 25}, {123, 21}, {0, 2}, {89, 16},
+                                               "../resources/bars.png", p);
+                game::ui_components.push_back(h);
+                game::ui_components.push_back(new food_bar({10, config::window::height - 50}, {123, 21}, {0, 1},
+                                                           {89, 16}, "../resources/bars.png", p));
 
                 clusters[idx].foreground.insert(p);
-                clusters[idx].collidables.insert(p);
-                float offset_x = row.position.x - static_cast<float>(config::viewport::width) / 2.0f, offset_y = row.position.y - static_cast<float>(config::viewport::height) / 2.0f;
-                cam = camera({{ offset_x, offset_y }}, {{ static_cast<float>(config::viewport::width), static_cast<float>(config::viewport::height) }}, .8f, 2.f, p);
-            } break;
+                float offset_x = row.position.x - static_cast<float>(config::viewport::width) / 2.0f, offset_y = row.
+                          position.y -
+                          static_cast<float>(config::viewport::height) / 2.0f;
+                cam = camera({{offset_x, offset_y}}, {
+                                 {
+                                     static_cast<float>(config::viewport::width),
+                                     static_cast<float>(config::viewport::height)
+                                 }
+                             }, .8f, 2.f, p);
+            }
+            break;
 
-            default: {
+        default:
+            {
                 std::cerr << "unknown entity type in map !" << std::endl;
-            } break;
+            }
+            break;
         }
     }
 
-    /*
+/*
     vec2<float> pos = {{1000, 1000}};
 
     uint32_t idx = map::find_cluster_idx(pos);
-    cow* m_cow = new cow(pos, {{32.0f, 32.0f}}, 100);
+    fusee* m_cow = new fusee(pos, {{48.0f, 48.0f}}, 100);
     clusters[idx].foreground.insert(m_cow);
     clusters[idx].collidables.insert(m_cow);
     clusters[idx].interactibles.insert(m_cow);
+
 
     vec2<float> pos2 = {{1055, 1055}};
 
@@ -97,7 +126,7 @@ void map::load(const char* file) {
     clusters[idx2].foreground.insert(m_cow2);
     clusters[idx2].collidables.insert(m_cow2);
     clusters[idx2].interactibles.insert(m_cow2);
-     */
+    */
 }
 
 void map::draw()
@@ -121,6 +150,7 @@ void map::draw()
 
 void map::update(float dt)
 {
+    map::map_tick = SDL_GetTicks();
     std::vector<const cluster*> cs = get_cluster_to_blit(cam);
     for (const cluster* c : cs)
     {
@@ -130,7 +160,8 @@ void map::update(float dt)
         }
 
         auto foreground_copy(c->foreground);
-        for(entity* e : foreground_copy) {
+        for (entity* e : foreground_copy)
+        {
             e->update(dt);
         }
     }
