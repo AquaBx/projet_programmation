@@ -2,47 +2,54 @@
 // Created by tomch on 29/05/2024.
 //
 
-#include "fusee.h"
-
-//
-// Created by tomch on 28/05/2024.
-//
-
-#include "cow.h"
-
-#include <algorithm>
-#include "renderer.h"
-#include "input.h"
+#include <iostream>
+#include "pnj.h"
 #include "map/map.h"
 
-fusee::fusee(vec2<float> pos, vec2<float> size, float max_health) :
+pnj::pnj(vec2<float> pos, vec2<float> size, float _max_health, aabb collide_box, vec2<uint32_t> frame_res,
+         const char *image_src, std::vector<uint32_t> animation_lengths) :
         entity(pos),
-        animated_sprite(pos, size, {{48, 48}}, {{size.x / 2, size.y / 2}}, "../resources/fusee.png", {1, 2}, 0.1),
-        collidable_entity(pos, aabb{20, 39, 41, 9}),
-        interactible(24, 30, 16),
-        max_health(max_health), current_health(max_health) {
-}
+        animated_sprite(pos, size, frame_res, {{size.x / 2, size.y / 2}}, image_src, animation_lengths, 0.1),
+        collidable_entity(pos, collide_box),
+        interactible(8, 8, 16),
+        position_initiale(pos),
+        objectif(pos),
+        max_health(_max_health),
+        current_health(_max_health),
+        tick(0.) {}
 
-void fusee::draw(const camera &cam) const {
+void pnj::draw(const camera &cam) const {
     //interactible::draw_interact_zone(cam, position);
     //collidable_entity::draw_collide_box(cam);
+
+    renderer::draw_rect(objectif.x, objectif.y, 5, 5);
     sprite::draw(cam);
 }
 
-circle fusee::get_interact_zone() const {
+circle pnj::get_interact_zone() const {
     return interactible::get_interact_zone() + get_position();
 }
 
-void fusee::update(float dt) {
+void pnj::update(float dt) {
+    if (tick == map::map_tick) return;
+    tick = map::map_tick;
+
     animated_sprite::update(dt);
 
-    return;
-
-    vec2<float> dir{{1, 0}};
+    vec2<float> dir = (objectif - position);
 
     const float speed = 10;
 
-    if (dir.x == 0 && dir.y == 0) return;
+    if (dir.norme() < 5.f) {
+
+        float rng1 = rand() / 32767.f - 0.5;
+        float rng2 = rand() / 32767.f - 0.5;
+
+        objectif = {{position_initiale.x + 100 * rng1, position_initiale.y + 100 * rng2}};
+        return;
+    };
+    dir = dir.normalize();
+
 
     uint32_t idx = map::find_cluster_idx(get_position());
     std::vector<cluster *> m_clusters = map::get_surrounding_clusters(idx);
@@ -72,18 +79,18 @@ void fusee::update(float dt) {
     }
 }
 
-void fusee::damage(float damage_value) {
+void pnj::damage(float damage_value) {
     current_health = std::max(current_health - damage_value, 0.f);
 }
 
-void fusee::benefit(float benefit_value) {
+void pnj::heal(float benefit_value) {
     current_health = std::min(benefit_value + current_health, max_health);
 }
 
-float fusee::get_max_health() const {
+float pnj::get_max_health() const {
     return max_health;
 }
 
-float fusee::get_current_health() const {
+float pnj::get_current_health() const {
     return current_health;
 }

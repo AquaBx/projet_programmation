@@ -10,6 +10,7 @@
 namespace input {
 
     void initialize();
+
     bool is_key_pressed(SDL_Scancode scancode);
 
 } //namespace input

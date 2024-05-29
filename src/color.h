@@ -13,14 +13,14 @@ namespace renderer {
 
     namespace colors {
 
-        constexpr color white = { 255, 255, 255, 255 };
-        constexpr color black = { 0, 0, 0, 255 };
+        constexpr color white = {255, 255, 255, 255};
+        constexpr color black = {0, 0, 0, 255};
 
-        constexpr color red = { 255, 0, 0, 255 };
-        constexpr color green = { 0, 255, 0, 255 };
-        constexpr color blue = { 0, 0, 255, 255 };
+        constexpr color red = {255, 0, 0, 255};
+        constexpr color green = {0, 255, 0, 255};
+        constexpr color blue = {0, 0, 255, 255};
 
-        constexpr color beige = { 237, 211, 171, 255 };
+        constexpr color beige = {237, 211, 171, 255};
 
     } // namespace colors
 

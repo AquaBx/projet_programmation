@@ -4,7 +4,7 @@
 
 #include "cluster.h"
 
-cluster::cluster(const aabb &_collide_box): collision_box(_collide_box) {
+cluster::cluster(const aabb &_collide_box) : collision_box(_collide_box) {
 
 }
 

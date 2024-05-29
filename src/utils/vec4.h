@@ -3,7 +3,7 @@
 //
 #pragma once
 
-template <class T>
+template<class T>
 union vec4 {
     struct {
         T x, y, z, w;

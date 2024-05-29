@@ -9,23 +9,24 @@
 #include "entity/player.h"
 #include "physics/physics.h"
 
-namespace map
-{
-    extern player* p;
+namespace map {
+    extern player *p;
     extern camera cam;
     extern uint32_t map_tick;
 
     extern std::vector<cluster> clusters;
 
-    void load(const char* file);
+    void load(const char *file);
 
     void draw();
+
     void update(float dt);
 
 
-    uint32_t find_cluster_idx(const vec2<float>& position);
-    std::vector<cluster*> get_surrounding_clusters(uint32_t cluster_idx);
+    uint32_t find_cluster_idx(const vec2<float> &position);
 
-    interactible* perceive(player* user, std::vector<cluster*> clusters);
+    std::vector<cluster *> get_surrounding_clusters(uint32_t cluster_idx);
+
+    interactible *perceive(player *user, const std::vector<cluster *> &clusters);
 
 } // namespace map

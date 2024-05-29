@@ -6,18 +6,17 @@
 #include "utils/vec2.h"
 #include "physics/aabb.h"
 
-class entity
-{
+class entity {
 public:
     entity(vec2<float> _position);
 
     virtual ~entity();
 
-    virtual void update(float dt)
-    {
+    virtual void update(float dt) {
     }
 
     void move(float dx, float dy);
+
     void move_to(float x, float y);
 
     vec2<float> get_position() const;

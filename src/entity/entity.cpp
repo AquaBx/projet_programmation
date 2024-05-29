@@ -4,25 +4,21 @@
 #include "entity.h"
 
 entity::entity(vec2<float> _position)
-    : position(_position)
-{
+        : position(_position) {
 }
 
 entity::~entity() = default;
 
-void entity::move(float dx, float dy)
-{
+void entity::move(float dx, float dy) {
     position.x += dx;
     position.y += dy;
 }
 
-void entity::move_to(float x, float y)
-{
+void entity::move_to(float x, float y) {
     position.x = x;
     position.y = y;
 }
 
-vec2<float> entity::get_position() const
-{
+vec2<float> entity::get_position() const {
     return this->position;
 }

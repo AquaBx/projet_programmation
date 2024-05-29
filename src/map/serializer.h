@@ -27,7 +27,7 @@ namespace serializer {
             fusee,
             wheat,
             tomato,
-
+            chicken,
             count,
         } type;
 
@@ -43,17 +43,18 @@ namespace serializer {
                 uint32_t animation_id;
             } animated_tile;
 
-            struct {} player;
+            struct {
+            } player;
         };
     };
 
-    std::istream& operator>>(std::istream& is, map_row::entity_type& type);
+    std::istream &operator>>(std::istream &is, map_row::entity_type &type);
 
     struct map {
         map_header header;
         std::vector<map_row> data;
     };
 
-    map deserialize(const char* filepath);
+    map deserialize(const char *filepath);
 
 } // namespace serializer

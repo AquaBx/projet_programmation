@@ -20,11 +20,13 @@ namespace texture_manager {
         count,
     };
 
-    extern std::array<std::string, (size_t)atlases::count> atlases_name;
-    extern std::unordered_map<std::string, SDL_Texture*> loaded_textures;
+    extern std::array<std::string, (size_t) atlases::count> atlases_name;
+    extern std::unordered_map<std::string, SDL_Texture *> loaded_textures;
 
-    std::ifstream& operator>>(std::ifstream& is, atlases& a);
+    std::ifstream &operator>>(std::ifstream &is, atlases &a);
+
     void initialize_atlases();
+
     void terminate();
 
 } // namespace texture_manager
