@@ -1,4 +1,10 @@
 //
+// Created by tomch on 29/05/2024.
+//
+
+#include "fusee.h"
+
+//
 // Created by tomch on 28/05/2024.
 //
 
@@ -9,41 +15,33 @@
 #include "input.h"
 #include "map/map.h"
 
-cow::cow(vec2<float> pos, vec2<float> size, float max_health):
+fusee::fusee(vec2<float> pos, vec2<float> size, float max_health):
     entity(pos),
-    animated_sprite(pos, size, {{32, 32}}, "../resources/cow.png", {3, 3, 2}, 0.1),
-    collidable_entity(pos, aabb{24, 24, 32, 8}),
-    interactible(16, 16, 32),
+    animated_sprite(pos, size, {{48, 48}}, "../resources/fusee.png", {1, 2}, 0.1),
+    collidable_entity(pos, aabb{20, 39, 41, 9}),
+    interactible(24, 30, 16),
     max_health(max_health), current_health(max_health)
 {
 }
 
-void cow::draw(const camera& cam) const
+void fusee::draw(const camera& cam) const
 {
     //interactible::draw_interact_zone(cam, position);
     //collidable_entity::draw_collide_box(cam);
     sprite::draw(cam);
 }
 
-circle cow::get_interact_zone() const
+circle fusee::get_interact_zone() const
 {
     return interactible::get_interact_zone() + get_position();
 }
 
-void cow::update(float dt)
+void fusee::update(float dt)
 {
     animated_sprite::update(dt);
 
-    if (delai_interact >= max_delai_interact)
-    {
-        sprite_offset.y = 0;
-    }
-    else
-    {
-        delai_interact += dt;
-    }
-
     return;
+
     vec2<float> dir{{1, 0}};
 
     const float speed = 10;
@@ -80,22 +78,22 @@ void cow::update(float dt)
     }
 }
 
-void cow::damage(float damage_value)
+void fusee::damage(float damage_value)
 {
     current_health = std::max(current_health - damage_value, 0.f);
 }
 
-void cow::benefit(float benefit_value)
+void fusee::benefit(float benefit_value)
 {
     current_health = std::min(benefit_value + current_health, max_health);
 }
 
-float cow::get_max_health() const
+float fusee::get_max_health() const
 {
     return max_health;
 }
 
-float cow::get_current_health() const
+float fusee::get_current_health() const
 {
     return current_health;
 }

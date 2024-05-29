@@ -9,10 +9,12 @@
 #include "entity/player.h"
 #include "physics/physics.h"
 
-namespace map {
-    
+namespace map
+{
     extern player* p;
     extern camera cam;
+    extern uint32_t map_tick;
+
     extern std::vector<cluster> clusters;
 
     void load(const char* file);
