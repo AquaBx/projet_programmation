@@ -40,6 +40,7 @@ void player::update(float dt) {
 
     animated_sprite::update(dt);
     damage(dt);
+    lose(dt);
 
     bool actioned = input::is_key_pressed(SDL_SCANCODE_E);
 
@@ -119,6 +120,14 @@ float player::get_max_health() const {
 
 float player::get_current_health() const {
     return current_health;
+}
+
+void player::collect(float collect_value) {
+    current_food = std::max(current_health - collect_value, 0.f);
+}
+
+void player::lose(float lose_value) {
+    current_food = std::min(lose_value + current_health, max_health);
 }
 
 float player::get_max_food() const {
