@@ -37,6 +37,10 @@ public :
 
     float get_current_food() const;
 
+    void collect(float collect_value);
+
+    void lose(float lose_value);
+
     circle get_interact_zone() const;
 
     void draw(const camera &cam) const override;
