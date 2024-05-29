@@ -36,6 +36,9 @@ void map::load(const char *file) {
     constexpr uint16_t cw = config::map::cluster_width;
     constexpr uint16_t ch = config::map::cluster_height;
 
+    // TODO BIG BIG BIG MEMORY LEAK
+    clusters.clear();
+
     nb_clusters_x = std::ceil((float) data.header.width / cw);
     nb_clusters_y = std::ceil((float) data.header.height / ch);
     for (unsigned int y = 0; y < nb_clusters_y; y++) {
@@ -122,7 +125,7 @@ void map::load(const char *file) {
 
             case serializer::map_row::entity_type::fusee: {
                 // init fusee
-                fusee *m_cow = new fusee(row.position, {{48.0f, 48.0f}}, 100);
+                fusee *m_cow = new fusee(row.position, {{48.0f, 48.0f}}, 50);
 
                 clusters[idx].foreground.insert(m_cow);
                 clusters[idx].collidables.insert(m_cow);

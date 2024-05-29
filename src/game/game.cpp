@@ -11,10 +11,8 @@
 std::vector<gui_component *> game::ui_components;
 
 game::game(unsigned int _width, unsigned int _height)
-    : context(_width, _height), current_state(state::game)
-{
-    map::load("../resources/map.map");
-}
+    : context(_width, _height), current_state(state::menu)
+{}
 
 game::~game() {
     for (auto component: ui_components) delete component;
@@ -26,6 +24,25 @@ void game::handle_event(const SDL_Event& event)
     {
     case SDL_EventType::SDL_QUIT: {
         running = false;
+    } break;
+    case SDL_EventType::SDL_MOUSEBUTTONDOWN: {
+        if(current_state != state::menu) break;
+
+        const struct {
+            float x, y;
+        } ratio = {
+                (500.0f / config::window::width),
+                (195.0f / config::window::height),
+        };
+        float dest_text_width = ((float)config::window::width / 2.0f) * ratio.x;
+        float dest_text_height = ((float)config::window::height / 2.0f) * ratio.y;
+
+        vec2<float> pos = {{ (((float)config::window::width / 2.0f) - (dest_text_width / 2.0f)), (((float)config::window::height / 2.0f) - (dest_text_height / 2.0f)) }};
+
+        if(event.button.x > pos.x && event.button.x < pos.x + dest_text_width && event.button.y > pos.y && event.button.y < pos.y + dest_text_height) {
+            current_state = state::game;
+            map::load("../resources/map.map");
+        }
     } break;
     case SDL_EventType ::SDL_USEREVENT: {
         if(event.user.code == event::source::player) current_state = state::game_over;
@@ -80,8 +97,37 @@ void game::update_game() {
 }
 
 void game::update_menu() {
-    // no menus rn
-    current_state = state::game;
+    event::manager::update();
+
+    renderer::draw_rect(0, 0, config::window::width, config::window::height, renderer::colors::black);
+    SDL_Texture* button = renderer::create_sdl_texture("../resources/button_idle.png");
+    SDL_Texture* menu_text = renderer::create_sdl_texture("../resources/play_txt.png");
+    const struct {
+        float x, y;
+    } ratio = {
+            (500.0f / config::window::width),
+            (195.0f / config::window::height),
+    };
+    float dest_text_width = ((float)config::window::width / 2.0f) * ratio.x;
+    float dest_text_height = ((float)config::window::height / 2.0f) * ratio.y;
+    renderer::draw_texture(
+            {{ (((float)config::window::width / 2.0f) - (dest_text_width / 2.0f)), (((float)config::window::height / 2.0f) - (dest_text_height / 2.0f)) }},
+            {{ dest_text_width, dest_text_height }},
+            {{ 345, 176 }},
+            button,
+            {{0, 0}}
+    );
+    renderer::draw_texture(
+            {{ (((float)config::window::width / 2.0f) - (dest_text_width / 2.0f)), (((float)config::window::height / 2.0f) - (dest_text_height / 2.0f)) }},
+            {{ dest_text_width, dest_text_height }},
+            {{ 500, 195 }},
+            menu_text,
+            {{0, 0}}
+    );
+    renderer::present();
+//    SDL_Delay(100);
+
+//    current_state = state::game;
 }
 
 void game::update_game_over() {
@@ -107,7 +153,9 @@ void game::update_game_over() {
         renderer::present();
         SDL_Delay(10);
     }
-    running = false;
+
+    renderer::clear();
+    current_state = state::menu;
 }
 
 void game::update_victory() {
