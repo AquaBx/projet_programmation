@@ -29,6 +29,6 @@ void cow::interact(player *user) {
     if (delai_interact >= max_delai_interact) {
         sprite_offset.y = 1;
         delai_interact = 0;
-        user->benefit(10.f);
+        user->heal(10.f);
     }
 }

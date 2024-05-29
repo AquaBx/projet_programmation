@@ -25,3 +25,9 @@ void crop::draw(const camera &cam) const {
     //interactible::draw_interact_zone(cam, position);
     sprite::draw(cam);
 }
+
+void crop::interact(player *user) {
+    if (age >= 3) {
+        age = 0;
+    }
+}

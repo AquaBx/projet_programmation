@@ -83,8 +83,8 @@ void pnj::damage(float damage_value) {
     current_health = std::max(current_health - damage_value, 0.f);
 }
 
-void pnj::heal(float benefit_value) {
-    current_health = std::min(benefit_value + current_health, max_health);
+void pnj::heal(float heal_value) {
+    current_health = std::min(heal_value + current_health, max_health);
 }
 
 float pnj::get_max_health() const {

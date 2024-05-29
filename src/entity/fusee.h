@@ -21,7 +21,7 @@ public :
 
     void damage(float damage_value);
 
-    void benefit(float benefit_value);
+    void heal(float heal_value);
 
     float get_max_health() const;
 

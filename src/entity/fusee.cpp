@@ -77,8 +77,8 @@ void fusee::damage(float damage_value) {
     current_health = std::max(current_health - damage_value, 0.f);
 }
 
-void fusee::benefit(float benefit_value) {
-    current_health = std::min(benefit_value + current_health, max_health);
+void fusee::heal(float heal_value) {
+    current_health = std::min(heal_value + current_health, max_health);
 }
 
 float fusee::get_max_health() const {

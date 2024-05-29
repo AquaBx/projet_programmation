@@ -110,8 +110,8 @@ void player::damage(float damage_value) {
     current_health = std::max(current_health - damage_value, 0.f);
 }
 
-void player::benefit(float benefit_value) {
-    current_health = std::min(benefit_value + current_health, max_health);
+void player::heal(float heal_value) {
+    current_health = std::min(heal_value + current_health, max_health);
 }
 
 float player::get_max_health() const {

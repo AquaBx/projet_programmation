@@ -23,7 +23,7 @@ public :
 
     void damage(float damage_value);
 
-    void benefit(float benefit_value);
+    void heal(float heal_value);
 
     float get_max_health() const;
 
@@ -36,7 +36,7 @@ public :
     float get_max_food() const;
 
     float get_current_food() const;
-    
+
     circle get_interact_zone() const;
 
     void draw(const camera &cam) const override;
