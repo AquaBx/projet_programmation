@@ -9,6 +9,8 @@
 #include "renderer.h"
 
 #include "input.h"
+#include "event.h"
+
 #include "map/map.h"
 #include "physics/physics.h"
 
@@ -24,8 +26,8 @@ player::player(vec2<float> pos, vec2<float> size, float max_health, float max_fo
         tick(0) {
 }
 
-void player::draw(const camera &cam) const {
-    //collidable_entity::draw_collide_box(cam);
+void player::draw(const camera& cam) const {
+    // collidable_entity::draw_collide_box(cam);
     sprite::draw(cam);
 }
 
@@ -35,39 +37,48 @@ circle player::get_interact_zone() const {
 }
 
 void player::update(float dt) {
-    if (tick == map::map_tick) return;
+    if(tick == map::map_tick) return;
     tick = map::map_tick;
 
     animated_sprite::update(dt);
+
+    // perdre de la vie
     damage(dt);
+    if(current_health <= 0.0f) {
+        // notifier l'application que le joueur est mort
+        event::manager::append(event::source::player);
+    }
+
+    // perdre de la nourriture
     lose(dt);
 
     bool actioned = input::is_key_pressed(SDL_SCANCODE_E);
 
-
     vec2<float> dir{{0, 0}};
+
     const float speed = 50;
     if (sprite_offset.y < 4) {
         if (input::is_key_pressed(SDL_SCANCODE_A)) {
             dir.x -= 1;
             sprite_offset.y = 2;
         }
+    
         if (input::is_key_pressed(SDL_SCANCODE_D)) {
             dir.x += 1;
             sprite_offset.y = 3;
         }
+    
         if (input::is_key_pressed(SDL_SCANCODE_W)) {
             dir.y -= 1;
             sprite_offset.y = 1;
         }
+    
         if (input::is_key_pressed(SDL_SCANCODE_S)) {
             dir.y += 1;
             sprite_offset.y = 0;
         }
-    } else {
-        if (sprite_offset.x >= 1) {
-            sprite_offset = {0, 0};
-        }
+    } else if (sprite_offset.x >= 1) {
+        sprite_offset = {0, 0};
     }
 
     if (dir.x == 0 && dir.y == 0 && !actioned) return;
@@ -110,30 +121,12 @@ void player::damage(float damage_value) {
     current_health = std::max(current_health - damage_value, 0.f);
 }
 
-void player::heal(float heal_value) {
-    current_health = std::min(heal_value + current_health, max_health);
-}
+void player::lose(float lose_value) { current_food = std::min(lose_value + current_health, max_health); }
+void player::heal(float heal_value) { current_health = std::min(heal_value + current_health, max_health); }
+void player::collect(float collect_value) { current_food = std::max(current_health - collect_value, 0.f); }
 
-float player::get_max_health() const {
-    return max_health;
-}
+float player::get_max_health() const { return max_health; }
+float player::get_current_health() const { return current_health; }
 
-float player::get_current_health() const {
-    return current_health;
-}
-
-void player::collect(float collect_value) {
-    current_food = std::max(current_health - collect_value, 0.f);
-}
-
-void player::lose(float lose_value) {
-    current_food = std::min(lose_value + current_health, max_health);
-}
-
-float player::get_max_food() const {
-    return max_food;
-}
-
-float player::get_current_food() const {
-    return current_food;
-}
+float player::get_max_food() const { return max_food; }
+float player::get_current_food() const { return current_food; }

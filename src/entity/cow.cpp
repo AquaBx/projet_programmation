@@ -25,7 +25,27 @@ void cow::update(float dt) {
     }
 }
 
-void cow::interact(player *user) {
+void cow::damage(float damage_value)
+{
+    current_health = std::max(current_health - damage_value, 0.f);
+}
+
+void cow::heal(float benefit_value)
+{
+    current_health = std::min(benefit_value + current_health, max_health);
+}
+
+float cow::get_max_health() const
+{
+    return max_health;
+}
+
+float cow::get_current_health() const
+{
+    return current_health;
+}
+
+void cow::interact(player* user) {
     if (delai_interact >= max_delai_interact) {
         sprite_offset.y = 1;
         delai_interact = 0;

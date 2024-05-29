@@ -6,8 +6,6 @@
 #include <array>
 #include <vector>
 
-#include <SDL2/SDL_events.h>
-
 #include "event.h"
 #include "camera.h"
 #include "cluster.h"
@@ -17,13 +15,20 @@
 
 #include "entity/entity.h"
 #include "entity/interactible.h"
-#include "entity/player.h"
 
 #include "GUI/health_bar.h"
 #include "GUI/food_bar.h"
 
 
 class game : public context, public event::listener {
+public:
+    enum class state {
+        menu,
+        game,
+        game_over,
+        victory,
+    } current_state;
+
 public:
     game(unsigned int _width, unsigned int _height);
 
@@ -34,6 +39,12 @@ public:
     void run();
 
     static std::vector<gui_component *> ui_components;
+
+protected:
+    void update_game();
+    void update_menu();
+    void update_game_over();
+    void update_victory();
 
 private:
     uint32_t previous_tick;
