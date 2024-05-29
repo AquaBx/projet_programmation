@@ -32,3 +32,5 @@ void crop::interact(player * user){
         age = 0;
     }
 }
+
+

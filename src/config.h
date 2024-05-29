@@ -18,7 +18,7 @@ namespace config {
 
     namespace window {
 
-        constexpr uint16_t factor = 6;
+        constexpr uint16_t factor = 3;
 
         constexpr uint16_t width = factor * viewport::width;
         constexpr uint16_t height = factor * viewport::height;

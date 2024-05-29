@@ -17,3 +17,12 @@ void copper::update(float dt) {
     sprite::sprite_offset.x = std::min(1, static_cast<int>(age));
     sprite::update(dt);
 }
+
+circle copper::get_interact_zone() const {
+    return interactible::get_interact_zone() + get_position();
+}
+
+void copper::draw(const camera &cam) const {
+    //interactible::draw_interact_zone(cam, position);
+    sprite::draw(cam);
+}
