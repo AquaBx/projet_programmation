@@ -95,6 +95,10 @@ set(exec
         src/entity/pnj.h
         src/entity/chicken.cpp
         src/entity/chicken.h
+        src/entity/copper.h
+        src/entity/copper.cpp
+        src/GUI/copper_bar.cpp
+        src/GUI/copper_bar.h
 )
 
 # SDL2_image sources

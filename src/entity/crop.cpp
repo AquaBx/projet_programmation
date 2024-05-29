@@ -26,8 +26,9 @@ void crop::draw(const camera &cam) const {
     sprite::draw(cam);
 }
 
-void crop::interact(player *user) {
+void crop::interact(player * user){
     if (age >= 3) {
+        user->collect_food(10);
         age = 0;
     }
 }

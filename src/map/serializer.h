@@ -28,6 +28,7 @@ namespace serializer {
             wheat,
             tomato,
             chicken,
+            copper,
             count,
         } type;
 

@@ -14,7 +14,7 @@
 #include "map/map.h"
 #include "physics/physics.h"
 
-player::player(vec2<float> pos, vec2<float> size, float max_health, float max_food) :
+player::player(vec2<float> pos, vec2<float> size, float max_health, float max_food, float max_copper) :
         entity(pos),
         animated_sprite(pos, size, {{48, 48}}, {{size.x / 2, size.y / 2}}, "../resources/player.png",
                         {4, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
@@ -22,7 +22,8 @@ player::player(vec2<float> pos, vec2<float> size, float max_health, float max_fo
                         0.1),
         collidable_entity(pos, aabb{24, 28, 32, 20}),
         max_health(max_health), current_health(max_health),
-        max_food(max_food), current_food(max_food),
+        max_food(max_food), current_food(0),
+        max_copper(max_copper), current_copper(0),
         tick(0) {
 }
 
@@ -44,14 +45,14 @@ void player::update(float dt) {
 
     // perdre de la vie
     damage(dt);
+
     if(current_health <= 0.0f) {
         // notifier l'application que le joueur est mort
         event::manager::append(event::source::player);
     }
 
     // perdre de la nourriture
-    lose(dt);
-
+    //lose_food(dt);
     bool actioned = input::is_key_pressed(SDL_SCANCODE_E);
 
     vec2<float> dir{{0, 0}};
@@ -121,12 +122,35 @@ void player::damage(float damage_value) {
     current_health = std::max(current_health - damage_value, 0.f);
 }
 
-void player::lose(float lose_value) { current_food = std::min(lose_value + current_health, max_health); }
 void player::heal(float heal_value) { current_health = std::min(heal_value + current_health, max_health); }
-void player::collect(float collect_value) { current_food = std::max(current_health - collect_value, 0.f); }
 
 float player::get_max_health() const { return max_health; }
 float player::get_current_health() const { return current_health; }
 
+
+void player::lose_food(float lose_value) {
+    current_food = std::max(current_food - lose_value, 0.f);
+}
+
+void player::collect_food(float collect_value) {
+    current_food = std::min(collect_value + current_food, max_food);
+}
+
 float player::get_max_food() const { return max_food; }
 float player::get_current_food() const { return current_food; }
+
+void player::lose_copper(float lose_value) {
+    current_copper = std::max(current_copper - lose_value, 0.f);
+}
+
+void player::collect_copper(float collect_value) {
+    current_copper = std::min(collect_value + current_copper, max_copper);
+}
+
+float player::get_max_copper() const {
+    return max_copper;
+}
+
+float player::get_current_copper() const {
+    return current_copper;
+}

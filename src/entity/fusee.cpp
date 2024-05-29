@@ -44,10 +44,12 @@ float fusee::get_current_health() const {
 }
 
 void fusee::interact(player *user)  {
-    benefit(1.f);
 
     // TODO consume copper
-    user->damage(5.f);
+    float m_copper = user->get_current_copper();
+    user -> lose_copper(m_copper);
+
+    benefit(m_copper);
 
     uint32_t idx = std::min(4, 1+(int)(3*(current_health/max_health)));
     sprite_offset = {{0, idx}};
