@@ -19,9 +19,7 @@ public :
 
     void update(float dt) override;
 
-    void damage(float damage_value);
-
-    void heal(float heal_value);
+    void benefit(float benefit_value);
 
     float get_max_health() const;
 
@@ -31,7 +29,5 @@ public :
 
     void draw(const camera &cam) const override;
 
-    void interact(player *user) override {
-        sprite_offset.y = 1;
-    }
+    void interact(player *user) override;
 };
