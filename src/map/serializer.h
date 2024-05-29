@@ -23,6 +23,10 @@ namespace serializer {
             tile,
             animated_tile,
             player,
+            cow,
+            fusee,
+            wheat,
+            tomato,
 
             count,
         } type;

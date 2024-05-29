@@ -65,6 +65,7 @@ void map::load(const char* file)
                         {{config::map::tile_width, config::map::tile_height}}, // ce que l'on veut afficher
                         {{row.tile.i, row.tile.j}},
                         {{16, 16}}, // ce qu'on lit dans le fichier
+                        {{config::map::tile_width/2, config::map::tile_height/2}},
                         texture_manager::atlases_name[(size_t)row.tile.atlas_id].c_str()
                     )
                 );
@@ -100,7 +101,46 @@ void map::load(const char* file)
                              }, .8f, 2.f, p);
             }
             break;
+            case serializer::map_row::entity_type::cow: {
+                // init cow
+                cow *m_cow = new cow(row.position, {{32.0f, 32.0f}}, 100);
 
+                clusters[idx].foreground.insert(m_cow);
+                clusters[idx].collidables.insert(m_cow);
+                clusters[idx].interactibles.insert(m_cow);
+            }
+            break;
+
+            case serializer::map_row::entity_type::fusee:
+            {
+                    // init fusee
+                    fusee * m_cow = new fusee(row.position, {{48.0f, 48.0f}}, 100);
+
+                    clusters[idx].foreground.insert(m_cow);
+                    clusters[idx].collidables.insert(m_cow);
+                    clusters[idx].interactibles.insert(m_cow);
+            }
+            break;
+
+            case serializer::map_row::entity_type::wheat:
+            {
+                // init wheat
+                wheat_crop * m_wheat = new wheat_crop(row.position, {{16.0f, 16.0f}});
+
+                clusters[idx].foreground.insert(m_wheat);
+                clusters[idx].interactibles.insert(m_wheat);
+            }
+            break;
+
+            case serializer::map_row::entity_type::tomato:
+            {
+                // init tomato
+                tomato_crop * m_tomato = new tomato_crop(row.position, {{16.0f, 16.0f}});
+
+                clusters[idx].foreground.insert(m_tomato);
+                clusters[idx].interactibles.insert(m_tomato);
+            }
+            break;
         default:
             {
                 std::cerr << "unknown entity type in map !" << std::endl;
@@ -139,13 +179,17 @@ void map::draw()
             e->draw(cam);
         }
     }
+
+    std::set<sprite*, y_sort> all_to_blit;
     for (const cluster* c : cs)
     {
         for (sprite* e : c->foreground)
         {
-            e->draw(cam);
+            all_to_blit.insert(e);
         }
     }
+    for(sprite* e : all_to_blit)
+        e->draw(cam);
 }
 
 void map::update(float dt)
@@ -154,13 +198,13 @@ void map::update(float dt)
     std::vector<const cluster*> cs = get_cluster_to_blit(cam);
     for (const cluster* c : cs)
     {
-        for (entity* e : c->background)
+        for (sprite* e : c->background)
         {
             e->update(dt);
         }
 
         auto foreground_copy(c->foreground);
-        for (entity* e : foreground_copy)
+        for (sprite* e : foreground_copy)
         {
             e->update(dt);
         }

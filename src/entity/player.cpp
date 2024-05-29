@@ -14,7 +14,7 @@
 
 player::player(vec2<float> pos, vec2<float> size, float max_health, float max_food):
     entity(pos),
-    animated_sprite(pos, size, {{48, 48}}, "../resources/player.png", {4, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+    animated_sprite(pos, size, {{48, 48}}, {{size.x/2, size.y/2}}, "../resources/player.png", {4, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
                     0.1),
     collidable_entity(pos, aabb{24, 28, 32, 20}),
     max_health(max_health), current_health(max_health),

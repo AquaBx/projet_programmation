@@ -13,8 +13,8 @@
 #include "physics/collidable.h"
 
 struct y_sort {
-    bool operator()(const entity* a, const entity* b) const {
-        return (a != b) && ((a->get_position().y != b->get_position().y) || (a->get_position().y < b->get_position().y));
+    bool operator()(const sprite* a, const sprite* b) const {
+        return (a != b) && ((a->get_anchored_pos().y == b->get_anchored_pos().y && a < b) || (a->get_anchored_pos().y < b->get_anchored_pos().y));
     }
 };
 

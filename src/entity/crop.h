@@ -12,7 +12,7 @@ protected:
     float age = 0;
 
     public :
-        crop(vec2<float> pos, vec2<float> size, int y_offset);
+        crop(vec2<float> pos, vec2<float> size, uint32_t y_offset);
         void update(float dt) override;
 
         circle get_interact_zone() const override;
