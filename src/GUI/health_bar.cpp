@@ -5,7 +5,7 @@
 #include "health_bar.h"
 #include "renderer.h"
 
-health_bar::health_bar(vec2<float> _position, vec2<float> _size, vec2<int> _sprite_offset , vec2<int> _sprite_resolution, const char* image_src, player * p)
+health_bar::health_bar(vec2<float> _position, vec2<float> _size, vec2<uint32_t> _sprite_offset , vec2<uint32_t> _sprite_resolution, const char* image_src, player * p)
         : entity(_position),gui_component(_position, _size, _sprite_offset, _sprite_resolution, image_src), p(p), current_health(100.0f), max_health(p->get_max_health()) {}
 
 void health_bar::draw(const camera& cam) const {

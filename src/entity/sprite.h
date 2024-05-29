@@ -13,12 +13,12 @@ class sprite : public virtual entity
 {
 protected:
     vec2<float> size;
-    vec2<int> sprite_offset;
-    vec2<int> sprite_resolution;
+    vec2<uint32_t> sprite_offset;
+    vec2<uint32_t> sprite_resolution;
     SDL_Texture* texture = nullptr;
 
 public:
-    sprite(vec2<float> _position, vec2<float> _size, vec2<int> _sprite_offset, vec2<int> _frame_resolution,
+    sprite(vec2<float> _position, vec2<float> _size, vec2<uint32_t> _sprite_offset, vec2<uint32_t> _frame_resolution,
            const char* image_src);
 
     vec2<float> get_size() const;

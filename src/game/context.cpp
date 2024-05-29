@@ -32,11 +32,6 @@ context::context(unsigned int _width, unsigned int _height)
         exit(1);
     }
 
-    auto flags = IMG_Init(IMG_INIT_PNG);
-    if(flags != IMG_INIT_PNG) {
-        std::cerr << "Error on IMG_Init, could not init PNG : " << IMG_GetError() << std::endl;
-    }
-
     input::initialize();
 }
 

@@ -20,8 +20,9 @@ namespace renderer
     void draw_rect(float x, float y, float width, float height, color c = colors::black);
     void draw_texture(float x, float y, float width, float height, const char* filepath);
 
-    void draw_texture(vec2<float> position, vec2<float> size, vec2<int> resolution, SDL_Texture* texture,
-                      vec2<int> frame);
+    void draw_texture(vec2<float> position, vec2<float> size, vec2<uint32_t> resolution, SDL_Texture* texture, vec2<uint32_t> frame);
 
-    int load_texture(const char* image_src, sprite* sprite_obj);
+    SDL_Texture* create_sdl_texture(const char* filepath);
+    int load_texture(const char * image_src, sprite * sprite_obj);
+
 } // namespace renderer
