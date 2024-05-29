@@ -14,7 +14,7 @@ std::vector<gui_component *> game::ui_components;
 game::game(unsigned int _width, unsigned int _height)
     : context(_width, _height), previous_tick(SDL_GetTicks())
 {
-    map::load("../resources/test.map");
+    map::load("../resources/map.map");
     // ui_components.push_back(new health_bar(m.player, 220, 20, 41, 7));
 }
 

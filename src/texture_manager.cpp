@@ -19,9 +19,7 @@ namespace texture_manager {
 #define ATLAS_PATH(next) "../resources/tiles/" next
 
     std::array<std::string, (size_t)atlases::count> atlases_name {
-            ATLAS_PATH("grass.png"),
-            ATLAS_PATH("sand.png"),
-            ATLAS_PATH("dirt.png"),
+            ATLAS_PATH("tilemap.png")
     };
 
     std::unordered_map<std::string, SDL_Texture*> loaded_textures;

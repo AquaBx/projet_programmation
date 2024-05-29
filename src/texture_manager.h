@@ -15,9 +15,7 @@
 namespace texture_manager {
 
     enum class atlases : uint32_t {
-        grass,
-        sand,
-        dirt,
+        tilemap,
 
         count,
     };
