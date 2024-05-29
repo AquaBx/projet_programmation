@@ -29,6 +29,14 @@ namespace renderer
                 SDL_GetError() << std::endl;
         }
 
+        auto flags = IMG_Init(IMG_INIT_PNG);
+        if(flags != IMG_INIT_PNG) {
+            std::cerr << "Error on IMG_Init, could not init PNG : " << IMG_GetError() << std::endl;
+            return false;
+        }
+
+        texture_manager::initialize_atlases();
+
         return true;
     }
 
@@ -57,63 +65,55 @@ namespace renderer
     }
 
 
-    void draw_texture(vec2<float> position, vec2<float> size, vec2<int> resolution, SDL_Texture* texture,
-                      vec2<int> frame)
-    {
-        SDL_Rect rect1{frame.x * resolution.width, frame.y * resolution.height, resolution.width, resolution.height};
-        SDL_FRect rect2{position.x, position.y, size.width, size.height};
+    void draw_texture(vec2<float> position, vec2<float> size, vec2<uint32_t> resolution, SDL_Texture* texture, vec2<uint32_t> frame) {
+        SDL_Rect rect1 { (int)frame.x*(int)resolution.width, (int)frame.y*(int)resolution.height, (int)resolution.width, (int)resolution.height };
+        SDL_FRect rect2 { position.x, position.y, size.width, size.height };
 
         SDL_RenderCopyF(renderer, texture, &rect1, &rect2);
     }
 
     // vérification
-    int load_texture(const char* image_src, sprite* sprite_obj)
-    {
-        using std::cerr;
-        using std::endl;
-
-        SDL_Texture* texture;
-        if (texture_manager::loaded_textures.find(image_src) != texture_manager::loaded_textures.end())
-        {
-            texture = texture_manager::loaded_textures[image_src];
-        }
-        else
-        {
-            const char* ext = image_src;
-
-            for (; *ext != '\0'; ext++);
-            for (; *ext != '.'; ext--);
-            ext++;
-
-            SDL_Surface* img = nullptr;
-
-            if (strcmp(ext, "png") == 0)
-            {
-                img = IMG_Load(image_src);
-            }
-            else if (strcmp(ext, "bmp") == 0)
-            {
-                img = SDL_LoadBMP(image_src);
-            }
-
-            if (img == nullptr)
-            {
-                cerr << "SDL_Load Error: " << SDL_GetError() << endl;
-                return EXIT_FAILURE;
-            }
-
-            texture = SDL_CreateTextureFromSurface(renderer, img);
-            if (texture == nullptr)
-            {
-                cerr << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << endl;
-                return EXIT_FAILURE;
-            }
-
-            SDL_FreeSurface(img);
-            texture_manager::loaded_textures[image_src] = texture;
+    int load_texture(const char * image_src, sprite * sprite_obj) {
+        SDL_Texture * texture;
+        if(texture_manager::loaded_textures.find(image_src) == texture_manager::loaded_textures.end()) {
+            texture_manager::loaded_textures[image_src] = create_sdl_texture(image_src);
         }
 
+        texture = texture_manager::loaded_textures[image_src];
         sprite_obj->set_texture(texture);
+
         return 0;
     }
+
+    SDL_Texture* create_sdl_texture(const char* filepath) {
+        const char * ext = filepath;
+
+        for ( ; *ext != '\0' ; ext ++ );
+        for ( ; *ext != '.' ; ext -- );
+        ext++;
+
+        SDL_Surface* img = nullptr;
+
+        if ( strcmp(ext,"png") == 0 ) {
+            img = IMG_Load(filepath);
+        }
+        else if ( strcmp(ext,"bmp") == 0 ) {
+            img = SDL_LoadBMP(filepath);
+        }
+
+        if (img == nullptr) {
+            std::cerr << "SDL_Load Error: " << SDL_GetError() << std::endl;
+            return nullptr;
+        }
+
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, img);
+        if (texture == nullptr) {
+            std::cerr << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
+            return nullptr;
+        }
+
+        SDL_FreeSurface(img);
+        return texture;
+    }
+
 } // namespace renderer

@@ -1,19 +1,32 @@
 //
 // Created by malo1 on 5/28/2024.
 //
-
 #pragma once
 
-#include <string>
-#include <unordered_map>
-#include "SDL_render.h"
+#include <cassert>
 
+#include <array>
+#include <string>
+#include <fstream>
+#include <unordered_map>
+
+#include <SDL2/SDL_render.h>
 
 namespace texture_manager {
-    std::unordered_map<std::string, SDL_Texture*> loaded_textures;
 
-    void terminate() {
-        for(auto & loaded_texture : loaded_textures)
-            SDL_DestroyTexture(loaded_texture.second);
-    }
+    enum class atlases : uint32_t {
+        grass,
+        sand,
+        dirt,
+
+        count,
+    };
+
+    extern std::array<std::string, (size_t)atlases::count> atlases_name;
+    extern std::unordered_map<std::string, SDL_Texture*> loaded_textures;
+
+    std::ifstream& operator>>(std::ifstream& is, atlases& a);
+    void initialize_atlases();
+    void terminate();
+
 } // namespace texture_manager

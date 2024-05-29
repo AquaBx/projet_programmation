@@ -32,26 +32,27 @@ set(exec
         src/entity/entity.h
         src/entity/entity.cpp
 
-        src/entity/interactible.cpp
         src/entity/interactible.h
+        src/entity/interactible.cpp
 
         src/entity/player.h
         src/entity/player.cpp
 
-        src/camera.cpp
         src/camera.h
+        src/camera.cpp
 
         src/utils/vec2.h
+        src/utils/vec4.h
 
+        src/color.h
         src/renderer.h
         src/renderer.cpp
-        src/color.h
         
-        src/cluster.cpp
         src/cluster.h
+        src/cluster.cpp
 
-        src/GUI/health_bar.cpp
         src/GUI/health_bar.h
+        src/GUI/health_bar.cpp
 
         src/map/map.h
         src/map/map.cpp
@@ -65,18 +66,23 @@ set(exec
         src/entity/collidable_entity.h
         src/entity/collidable_entity.cpp
 
-        src/GUI/gui_component.cpp
         src/GUI/gui_component.h
+        src/GUI/gui_component.cpp
+
         src/physics/collidable.h
-        src/input.cpp
+
         src/input.h
+        src/input.cpp
 
-        src/entity/cow.cpp
         src/entity/cow.h
-
-        src/utils/vec4.h
         src/entity/cow.cpp
 
+
+        src/map/serializer.h
+        src/map/serializer.cpp
+        
+        src/texture_manager.h
+        src/texture_manager.cpp
 )
 
 # SDL2_image sources

@@ -10,6 +10,6 @@
 
 class gui_component : public sprite{
 public:
-    gui_component(vec2<float> _position, vec2<float> _size, vec2<int> _sprite_offset , vec2<int> _sprite_resolution, const char* image_src);
+    gui_component(vec2<float> _position, vec2<float> _size, vec2<uint32_t> _sprite_offset , vec2<uint32_t> _sprite_resolution, const char* image_src);
 };
 
