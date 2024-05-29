@@ -7,7 +7,7 @@
 #include <cassert>
 
 static int32_t keyboard_size = 0;
-static const uint8_t* keyboard_state = nullptr;
+static const uint8_t *keyboard_state = nullptr;
 
 void input::initialize() {
     keyboard_state = SDL_GetKeyboardState(&keyboard_size);

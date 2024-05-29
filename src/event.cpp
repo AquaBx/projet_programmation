@@ -7,7 +7,7 @@
 
 namespace event {
 
-    std::vector<listener*> listeners;
+    std::vector<listener *> listeners;
 
     listener::listener() {
         listeners.push_back(this);
@@ -17,8 +17,8 @@ namespace event {
 
         void update() {
             SDL_Event event;
-            while(SDL_PollEvent(&event)) {
-                for(auto listener : listeners) {
+            while (SDL_PollEvent(&event)) {
+                for (auto listener: listeners) {
                     listener->handle_event(event);
                 }
             }

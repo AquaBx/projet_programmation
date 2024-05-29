@@ -8,9 +8,10 @@
 class context {
 protected:
     unsigned int width, height;
-    SDL_Window* window;
+    SDL_Window *window;
 
 public:
     context(unsigned int _width, unsigned int _height);
+
     virtual ~context();
 };

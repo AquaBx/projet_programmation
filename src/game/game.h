@@ -23,14 +23,16 @@
 #include "GUI/food_bar.h"
 
 
-class game: public context, public event::listener {
+class game : public context, public event::listener {
 public:
     game(unsigned int _width, unsigned int _height);
+
     ~game() override;
 
-    void handle_event(SDL_Event const& event) override;
+    void handle_event(SDL_Event const &event) override;
 
     void run();
+
     static std::vector<gui_component *> ui_components;
 
 private:

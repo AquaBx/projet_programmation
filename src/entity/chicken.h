@@ -1,5 +1,5 @@
 //
-// Created by tomch on 28/05/2024.
+// Created by tomch on 29/05/2024.
 //
 
 #pragma once
@@ -13,15 +13,17 @@
 #include "interactible.h"
 #include "pnj.h"
 
-class cow : public pnj {
+class chicken : public pnj {
 protected:
     float max_delai_interact = 2.0f;
     float delai_interact = max_delai_interact;
 
 public :
-    cow(vec2<float> pos, vec2<float> size, float max_health);
+    chicken(vec2<float> pos, vec2<float> size, float max_health);
 
     void update(float dt) override;
 
-    void interact(player *user) override;
+    void interact(player *user) override {
+
+    };
 };

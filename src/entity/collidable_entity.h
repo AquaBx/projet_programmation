@@ -9,8 +9,7 @@
 #include "physics/collidable.h"
 #include "utils/vec4.h"
 
-class collidable_entity : public collidable, public virtual entity
-{
+class collidable_entity : public collidable, public virtual entity {
 protected:
     aabb collide_box;
 
@@ -19,8 +18,7 @@ public:
 
     aabb get_collide_box() const override;
 
-    void draw_collide_box(const camera& cam) const
-    {
+    void draw_collide_box(const camera &cam) const {
         aabb abs = collide_box + position;
 
         vec4<float> monrect = cam.transform({{abs.left, abs.top}}, {{abs.right - abs.left, abs.bottom - abs.top}});

@@ -3,13 +3,13 @@
 //
 
 #pragma once
+
 #include "crop.h"
 #include "interactible.h"
 
 
-class wheat_crop: public crop
-{
+class wheat_crop : public crop {
 public:
-    wheat_crop(vec2<float> pos, vec2<float> size):
-entity(pos),crop(pos,size,0){}
+    wheat_crop(vec2<float> pos, vec2<float> size) :
+            entity(pos), crop(pos, size, 0) {}
 };

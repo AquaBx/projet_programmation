@@ -7,22 +7,23 @@
 #include "interactible.h"
 #include "sprite.h"
 
-class crop: public sprite, public interactible {
+class crop : public sprite, public interactible {
 protected:
     float age = 0;
 
-    public :
-        crop(vec2<float> pos, vec2<float> size, uint32_t y_offset);
-        void update(float dt) override;
+public :
+    crop(vec2<float> pos, vec2<float> size, uint32_t y_offset);
 
-        circle get_interact_zone() const override;
+    void update(float dt) override;
 
-        void draw(const camera& cam) const override;
+    circle get_interact_zone() const override;
 
-        void interact(player* user) override {
-            if ( age >= 4) {
-                age = 0;
-                user -> benefit(10);
-            }
+    void draw(const camera &cam) const override;
+
+    void interact(player *user) override {
+        if (age >= 4) {
+            age = 0;
+            user->benefit(10);
         }
+    }
 };

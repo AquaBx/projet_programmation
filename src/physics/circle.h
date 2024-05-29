@@ -10,7 +10,7 @@ struct circle {
     vec2<float> position;
 };
 
-inline circle operator+ (const circle& old, const vec2<float> & dpos){
+inline circle operator+(const circle &old, const vec2<float> &dpos) {
     circle nouveau{};
     nouveau.rayon = old.rayon;
     nouveau.position = old.position + dpos;

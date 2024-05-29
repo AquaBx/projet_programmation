@@ -10,7 +10,7 @@ namespace event {
     struct listener {
         explicit listener();
 
-        virtual void handle_event(SDL_Event const& e) = 0;
+        virtual void handle_event(SDL_Event const &e) = 0;
     };
 
     namespace manager {
